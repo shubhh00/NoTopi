@@ -1,20 +1,53 @@
+<div align="center">
+
+<img src="apps/mobile/assets/icon.png" width="112" alt="NoTopi icon" />
+
 # NoTopi
 
 **Is this a scam? Paste it, share it, or screenshot it, and get an answer with proof.**
 
 *Topi pehnana* (Hindi slang): to con someone. **NoTopi**: not today.
 
+![Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)
+![React Native](https://img.shields.io/badge/React_Native-20232A?logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white)
+![ML Kit](https://img.shields.io/badge/ML_Kit-on--device_OCR-4285F4?logo=google&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot_4-6DB33F?logo=springboot&logoColor=white)
+![Java](https://img.shields.io/badge/Java_21-ED8B00?logo=openjdk&logoColor=white)
+![SerpApi](https://img.shields.io/badge/Powered_by-SerpApi-DC2A1E)
+![License: MIT](https://img.shields.io/badge/License-MIT-141414)
+
+[What it checks](#what-it-checks) · [How it decides](#how-it-decides) · [Architecture](#architecture) · [Run it](#run-it) · [Add a scam](#add-a-scam)
+
+</div>
+
 NoTopi is an open-source Android app that checks messages, phone numbers, links, apps and shop
 names for scams common in India. It doesn't just say "spam": it tells you **which scam** it looks
 like, **why** (with the exact words and web reports highlighted), and **what to do next**.
 
-| Share from any app | The verdict | Why it's a scam |
-|:---:|:---:|:---:|
-| <img width="1080" height="2340" alt="0-share-sheet" src="https://github.com/user-attachments/assets/f2c1dde7-c2d5-44f4-bf90-f70767b800a4" /> | <img width="1080" height="2340" alt="2-verdict-scam" src="https://github.com/user-attachments/assets/49589671-b59e-408d-b898-8c4e6fb91102" /> | <img width="1080" height="2340" alt="3-verdict-why" src="https://github.com/user-attachments/assets/12676f99-9197-4930-a003-09e980140434" /> |
-
-| Home | Suspicious link | What to do |
-|:---:|:---:|:---:|
-| <img width="1080" height="2340" alt="1-home" src="https://github.com/user-attachments/assets/7a11ef26-0044-4870-b16a-9cb1c79523a3" /> | <img width="1080" height="2340" alt="4-verdict-suspicious" src="https://github.com/user-attachments/assets/f5a3195a-90f2-4f09-a668-3673077a3f59" /> |<img width="1080" height="2340" alt="5-help" src="https://github.com/user-attachments/assets/14fd316b-3684-4689-8496-9c0955f3b3e4" /> |
+<table>
+  <tr>
+    <td align="center"><b>Home</b></td>
+    <td align="center"><b>The verdict</b></td>
+    <td align="center"><b>Why it's a scam</b></td>
+  </tr>
+  <tr>
+    <td><img width="250" alt="Home screen" src="https://github.com/user-attachments/assets/7a11ef26-0044-4870-b16a-9cb1c79523a3" /></td>
+    <td><img width="250" alt="Scam verdict" src="https://github.com/user-attachments/assets/49589671-b59e-408d-b898-8c4e6fb91102" /></td>
+    <td><img width="250" alt="Highlighted message and reasons" src="https://github.com/user-attachments/assets/12676f99-9197-4930-a003-09e980140434" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Suspicious link</b></td>
+    <td align="center"><b>What to do</b></td>
+    <td align="center"><b>Share from any app</b></td>
+  </tr>
+  <tr>
+    <td><img width="250" alt="Suspicious link verdict" src="https://github.com/user-attachments/assets/f5a3195a-90f2-4f09-a668-3673077a3f59" /></td>
+    <td><img width="250" alt="Help screen" src="https://github.com/user-attachments/assets/14fd316b-3684-4689-8496-9c0955f3b3e4" /></td>
+    <td><img width="250" alt="NoTopi in the Android share sheet" src="https://github.com/user-attachments/assets/f2c1dde7-c2d5-44f4-bf90-f70767b800a4" /></td>
+  </tr>
+</table>
 
 ## What it checks
 
