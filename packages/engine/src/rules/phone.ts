@@ -1,7 +1,7 @@
 import { localDigits } from '../classify';
 import type { CheckInput, Evidence, Signal } from '../types';
 import {
-  ACTION_WORDS, COMPLAINT_SITES, MAX_RECEIPTS, SCAM_WORDS,
+  COMPLAINT_SITES, MAX_RECEIPTS, SCAM_WORDS,
   isSite, itemText, itemsMentioning, mentionsNumber, receiptFor,
 } from './common';
 
@@ -31,20 +31,12 @@ export function phoneSignals(input: CheckInput, ev: Evidence): Signal[] {
     });
   }
 
-  const news = itemsMentioning(aboutNumber.filter((i) => i.source === 'news'), [...ACTION_WORDS, ...SCAM_WORDS]);
-  if (news.length > 0) {
-    signals.push({
-      id: 'phone.news',
-      label: 'Named in a news report about fraud',
-      points: 20,
-      receipts: news.slice(0, MAX_RECEIPTS).map(([i, w]) => receiptFor(i, w)),
-    });
-  }
-
-  if (ev.business) {
+  // A Google business listing vouches for a number only if it shows this exact number.
+  const listedPhone = ev.business?.phone;
+  if (ev.business && listedPhone && localDigits(listedPhone) === digits) {
     signals.push({
       id: 'phone.business-listing',
-      label: `Listed on Google Maps as "${ev.business.name}"`,
+      label: `Listed on Google as "${ev.business.name}"`,
       points: -20,
       receipts: [],
     });

@@ -82,7 +82,7 @@ describe('phone numbers', () => {
 
   it('becomes a scam with web reports, and names the scam from them', () => {
     const ev: Evidence = {
-      searched: ['search', 'news'],
+      searched: ['search'],
       items: [
         web('98765 43210 - fraud call', 'Got a call from 98765 43210 claiming to be CBI, said a parcel with drugs in my name. Scam.', 'https://www.reddit.com/r/india/x'),
         web('Who called me 9876543210', 'Fraud caller pretending to be customs officer.', 'https://www.tellows.in/num/9876543210'),

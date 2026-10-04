@@ -53,7 +53,20 @@ export function classify(raw: string): CheckInput {
     return { kind: 'url', raw, value };
   }
 
+  // A few words with no sentence in them is a shop, company or website name: "Bling Queen".
+  const words = trimmed.split(/\s+/);
+  if (words.length <= MAX_NAME_WORDS && trimmed.length <= 40 && !/[.?!:]\s|[?!]$/.test(trimmed)) {
+    return { kind: 'name', raw, value: trimmed };
+  }
+
   return { kind: 'text', raw, value: trimmed };
+}
+
+const MAX_NAME_WORDS = 4;
+
+/** Lowercase with spaces and punctuation removed, so "Bling Queen" matches "blingqueen" and "BlingQueen". */
+export function compactName(s: string): string {
+  return s.toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
 }
 
 const URL_IN_TEXT = /\b(?:https?:\/\/)?(?:[a-z0-9-]+\.)+[a-z]{2,}(?:\/[^\s)>\]]*)?/gi;

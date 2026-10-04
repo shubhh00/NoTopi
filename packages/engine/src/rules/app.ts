@@ -1,5 +1,5 @@
-import type { CheckInput, Evidence, Signal } from '../types';
-import { ACTION_WORDS, HARASSMENT_WORDS, MAX_RECEIPTS, itemText, itemsMentioning, receiptFor } from './common';
+import type { Evidence, Signal } from '../types';
+import { HARASSMENT_WORDS, MAX_RECEIPTS, itemsMentioning, receiptFor } from './common';
 
 const FREE_MAIL = /@(?:gmail|yahoo|outlook|hotmail|rediffmail|proton(?:mail)?)\.[a-z.]+$/i;
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -9,7 +9,7 @@ function monthsSince(iso: string, now: Date): number | undefined {
   return Number.isNaN(t) ? undefined : (now.getTime() - t) / (30 * DAY_MS);
 }
 
-export function appSignals(input: CheckInput, ev: Evidence, now: Date): Signal[] {
+export function appSignals(ev: Evidence, now: Date): Signal[] {
   const signals: Signal[] = [];
   const app = ev.app;
 
@@ -53,19 +53,6 @@ export function appSignals(input: CheckInput, ev: Evidence, now: Date): Signal[]
     });
   }
 
-  const name = app.title.toLowerCase();
-  const news = itemsMentioning(
-    ev.items.filter((i) => i.source === 'news' && itemText(i).toLowerCase().includes(name)),
-    ACTION_WORDS,
-  );
-  if (news.length > 0) {
-    signals.push({
-      id: 'app.news-action',
-      label: 'Named in news about police or RBI action',
-      points: 30,
-      receipts: news.slice(0, MAX_RECEIPTS).map(([i, w]) => receiptFor(i, w)),
-    });
-  }
 
   if ((app.installs ?? 0) >= 10_000_000 && ageMonths !== undefined && ageMonths > 24) {
     signals.push({

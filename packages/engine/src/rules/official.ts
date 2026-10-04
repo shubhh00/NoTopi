@@ -3,6 +3,7 @@ import { hostnameOf } from '../normalize';
 import { isOfficial, officialLabel, type OfficialSources } from '../official';
 import type { PatternMatch } from '../patterns';
 import type { CheckInput, Evidence, EvidenceItem, Signal } from '../types';
+import { mentionsName } from './name';
 import {
   ACTION_WORDS, MAX_RECEIPTS, SCAM_WORDS,
   itemText, itemsMentioning, mentionsNumber, receiptFor,
@@ -45,6 +46,8 @@ export function officialSignals(
       const host = hostnameOf(input.value);
       return named((i) => itemText(i).toLowerCase().includes(host));
     }
+    case 'name':
+      return named((i) => mentionsName(i, input.value));
     case 'app': {
       const names = [input.value, ev.app?.title].filter((n): n is string => Boolean(n)).map((n) => n.toLowerCase());
       return named((i) => names.some((n) => itemText(i).toLowerCase().includes(n)));

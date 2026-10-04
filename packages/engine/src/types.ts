@@ -1,16 +1,16 @@
-export type InputKind = 'phone' | 'url' | 'app' | 'text';
+export type InputKind = 'phone' | 'url' | 'app' | 'name' | 'text';
 
 export interface CheckInput {
   kind: InputKind;
   /** Exactly what the user pasted or shared. */
   raw: string;
-  /** Normalised form: +91XXXXXXXXXX, a URL with scheme, a Play package id, or the trimmed text. */
+  /** Normalised form: +91XXXXXXXXXX, a URL with scheme, a Play package id, a business name, or the trimmed text. */
   value: string;
   /** Brand the number or link claims to belong to ("Swiggy customer care"), if known. */
   brandHint?: string;
 }
 
-export type EvidenceSource = 'search' | 'official' | 'news' | 'play' | 'play-reviews' | 'maps' | 'lens';
+export type EvidenceSource = 'search' | 'official' | 'play' | 'play-reviews';
 
 export interface EvidenceItem {
   source: EvidenceSource;
@@ -36,6 +36,8 @@ export interface AppListing {
 
 export interface BusinessListing {
   name: string;
+  /** The listing's phone, as shown. A listing only vouches for a number if they match. */
+  phone?: string;
   rating?: number;
   reviews?: number;
 }

@@ -9,8 +9,6 @@ type Json = Record<string, any>;
 const SOURCE_FOR: Record<SerpQuery['purpose'], EvidenceSource> = {
   web: 'search',
   official: 'official',
-  news: 'news',
-  business: 'maps',
   'official-number': 'search',
   app: 'play',
   'app-reviews': 'play-reviews',
@@ -43,23 +41,18 @@ export function evidenceFromSerp(query: SerpQuery, json: Json): Evidence {
   const ev: Evidence = { searched: [source], items: [] };
 
   switch (query.purpose) {
-    case 'web':
+    case 'web': {
+      ev.items = (json.organic_results ?? []).map((r: Json) => item(source, r)).filter(Boolean);
+      // The business panel or local listings on the same results page, when they show a phone.
+      const locals: Json[] = Array.isArray(json.local_results) ? json.local_results : (json.local_results?.places ?? []);
+      const listing = [json.knowledge_graph, ...locals].find((p: Json | undefined) => p?.title && typeof p.phone === 'string');
+      if (listing) ev.business = { name: listing.title, phone: listing.phone, rating: listing.rating, reviews: listing.reviews };
+      break;
+    }
+
     case 'official':
       ev.items = (json.organic_results ?? []).map((r: Json) => item(source, r)).filter(Boolean);
       break;
-
-    case 'news': {
-      // Google News nests related coverage under `stories`; flatten it.
-      const flat: Json[] = (json.news_results ?? []).flatMap((r: Json) => (r.stories ? r.stories : [r]));
-      ev.items = flat.map((r) => item(source, r)).filter(Boolean) as EvidenceItem[];
-      break;
-    }
-
-    case 'business': {
-      const place: Json | undefined = json.place_results ?? json.local_results?.[0];
-      if (place?.title) ev.business = { name: place.title, rating: place.rating, reviews: place.reviews };
-      break;
-    }
 
     case 'official-number': {
       const numbers = new Set<string>();

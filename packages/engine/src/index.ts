@@ -2,9 +2,11 @@ import type { BrandDb } from './brands';
 import { extractEntities } from './classify';
 import { matchPatterns, type Pattern, type PatternMatch } from './patterns';
 import type { Anatomy } from './anatomy';
+import { planQueries, type SerpQuery } from './plan';
 import type { OfficialSources } from './official';
 import { anatomySignals } from './rules/anatomy';
 import { appSignals } from './rules/app';
+import { nameReportSignals } from './rules/name';
 import { officialSignals } from './rules/official';
 import { MAX_RECEIPTS, SCAM_WORDS, itemText, itemsMentioning, receiptFor } from './rules/common';
 import { phoneSignals } from './rules/phone';
@@ -58,9 +60,14 @@ function patternFromReports(ev: Evidence, patterns: Pattern[]): PatternMatch | u
   return matchPatterns(reports.map(itemText).join('\n'), patterns)[0];
 }
 
-/** Matches for a message before any searching, so `planQueries` can look up news for the right scam. */
-export function preMatch(input: CheckInput, db: Db): PatternMatch[] {
-  return input.kind === 'text' ? matchPatterns(input.value, db.patterns) : [];
+/**
+ * The searches worth running for an input. A message that's already a scam from its wording
+ * alone (a known script, or the structure of one) needs no searching: that saves credits
+ * for the checks that do.
+ */
+export function searchPlan(input: CheckInput, db: Db): SerpQuery[] {
+  if (input.kind === 'text' && assess(input, { searched: [], items: [] }, db).level === 'scam') return [];
+  return planQueries(input);
 }
 
 export function assess(input: CheckInput, evidence: Evidence, db: Db, now: Date = new Date()): Verdict {
@@ -75,7 +82,10 @@ export function assess(input: CheckInput, evidence: Evidence, db: Db, now: Date 
       signals = [...urlShapeSignals(input.value, db.brands), ...urlEvidenceSignals(input.value, evidence)];
       break;
     case 'app':
-      signals = appSignals(input, evidence, now);
+      signals = appSignals(evidence, now);
+      break;
+    case 'name':
+      signals = nameReportSignals(input.value, evidence);
       break;
     case 'text': {
       const matches = matchPatterns(input.value, db.patterns);
