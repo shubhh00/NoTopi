@@ -8,18 +8,13 @@ NoTopi is an open-source Android app that checks messages, phone numbers, links,
 names for scams common in India. It doesn't just say "spam": it tells you **which scam** it looks
 like, **why** (with the exact words and web reports highlighted), and **what to do next**.
 
-<!--
-  SCREENSHOTS: drag each image from S:\notopi-screenshots onto the matching line below,
-  then delete the placeholder text. GitHub turns each drop into an <img> tag.
--->
-
 | Share from any app | The verdict | Why it's a scam |
 |:---:|:---:|:---:|
-| DROP 0-share-sheet.png HERE | DROP 2-verdict-scam.png HERE | DROP 3-verdict-why.png HERE |
+| <img width="1080" height="2340" alt="0-share-sheet" src="https://github.com/user-attachments/assets/f2c1dde7-c2d5-44f4-bf90-f70767b800a4" /> | <img width="1080" height="2340" alt="2-verdict-scam" src="https://github.com/user-attachments/assets/49589671-b59e-408d-b898-8c4e6fb91102" /> | <img width="1080" height="2340" alt="3-verdict-why" src="https://github.com/user-attachments/assets/12676f99-9197-4930-a003-09e980140434" /> |
 
 | Home | Suspicious link | What to do |
 |:---:|:---:|:---:|
-| DROP 1-home.png HERE | DROP 4-verdict-suspicious.png HERE | DROP 5-help.png HERE |
+| <img width="1080" height="2340" alt="1-home" src="https://github.com/user-attachments/assets/7a11ef26-0044-4870-b16a-9cb1c79523a3" /> | <img width="1080" height="2340" alt="4-verdict-suspicious" src="https://github.com/user-attachments/assets/f5a3195a-90f2-4f09-a668-3673077a3f59" /> |<img width="1080" height="2340" alt="5-help" src="https://github.com/user-attachments/assets/14fd316b-3684-4689-8496-9c0955f3b3e4" /> |
 
 ## What it checks
 
