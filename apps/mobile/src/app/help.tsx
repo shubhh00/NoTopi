@@ -1,10 +1,11 @@
+import { StatusBar } from 'expo-status-bar';
 import { router, useLocalSearchParams } from 'expo-router';
 import * as Linking from 'expo-linking';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Body, OutlineButton, PrimaryButton, Serif, TextLink } from '@/components/ui';
+import { Body, PrimaryButton, Serif, TextLink } from '@/components/ui';
 import { db } from '@/lib/db';
-import { color, space } from '@/theme';
+import { color, space, type as t } from '@/theme';
 
 /** Used when we don't know which scam it is: steps that are right for almost every case. */
 const GENERAL = {
@@ -25,6 +26,8 @@ export default function Help() {
 
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
+      {/* Opened from a verdict, which sets light icons for its coloured block. */}
+      <StatusBar style="dark" />
       <ScrollView contentContainerStyle={styles.content}>
         <TextLink label="Back" tone="muted" onPress={() => router.back()} />
 
@@ -43,7 +46,9 @@ export default function Help() {
 
       <View style={styles.actions}>
         <PrimaryButton label="Call 1930" onPress={() => Linking.openURL('tel:1930')} />
-        <OutlineButton label="Report at cybercrime.gov.in" onPress={() => Linking.openURL('https://cybercrime.gov.in')} />
+        <View style={styles.secondary}>
+          <TextLink label="Report it at cybercrime.gov.in" onPress={() => Linking.openURL('https://cybercrime.gov.in')} />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -52,11 +57,12 @@ export default function Help() {
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: color.paper },
   content: { paddingHorizontal: space.gutter, paddingTop: space.md, paddingBottom: space.xl },
-  headline: { fontSize: 46, lineHeight: 48, marginTop: space.xl + space.md },
-  sub: { color: color.muted, marginTop: space.md },
+  headline: { ...t.display, marginTop: space.xl },
+  sub: { ...t.lead, color: color.muted, marginTop: space.sm },
   steps: { marginTop: space.xl, gap: space.lg },
-  step: { flexDirection: 'row', gap: space.md },
-  num: { fontSize: 34, lineHeight: 34, width: 22 },
-  stepText: { flex: 1, fontSize: 16, lineHeight: 23 },
-  actions: { paddingHorizontal: space.gutter, paddingBottom: space.md, gap: space.sm },
+  step: { flexDirection: 'row', gap: space.md, alignItems: 'flex-start' },
+  num: { fontSize: 32, lineHeight: 36, width: 24, marginTop: -4 },
+  stepText: { ...t.body, flex: 1 },
+  actions: { paddingHorizontal: space.gutter, paddingTop: space.sm, paddingBottom: space.md, gap: space.md },
+  secondary: { alignItems: 'center' },
 });

@@ -9,6 +9,11 @@ export const color = {
   hairline: '#D9D4C7',
   marker: '#F2D74E',
   danger: '#C2321C',
+  /** The icon's "topi." red, brighter than the verdict red; used for the wordmark. */
+  brand: '#DC2A1E',
+  /** Cards that sit on the paper: the input, the help card. */
+  card: '#FBF9F4',
+  dangerTint: '#F8E6E0',
 } as const;
 
 /** Background, main text and secondary text for each verdict's full-bleed block. */
@@ -36,3 +41,19 @@ export const font = {
 } as const;
 
 export const space = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, gutter: 20 } as const;
+
+/**
+ * One type scale for every screen. Serif line heights sit well above the font size so
+ * descenders ("g", "p") are never clipped.
+ */
+export const type = {
+  /** Screen headlines: "Something feel off?", "You're not in trouble." */
+  display: { fontFamily: font.serif, fontSize: 42, lineHeight: 50, color: color.ink },
+  /** The line under a headline. */
+  lead: { fontFamily: font.sans, fontSize: 17, lineHeight: 25 },
+  body: { fontFamily: font.sans, fontSize: 16, lineHeight: 24 },
+  /** Section headings within a screen: "Your message", "Why". Quiet, so the content leads. */
+  heading: { fontFamily: font.sansMedium, fontSize: 15, lineHeight: 22, color: color.muted },
+  /** Small labels: "Recent", form field names. */
+  label: { fontFamily: font.mono, fontSize: 14, color: color.muted },
+} as const;

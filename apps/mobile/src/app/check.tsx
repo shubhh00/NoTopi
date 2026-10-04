@@ -1,16 +1,16 @@
 import * as Haptics from 'expo-haptics';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { recognizeText } from '../../modules/text-recognizer';
-import { Body, Mono, Serif } from '@/components/ui';
+import { Body, Mono, Serif, TextLink } from '@/components/ui';
 import { VerdictView } from '@/components/VerdictView';
 import { describeQuery, planFor, runCheck, type CheckResult } from '@/lib/check';
 import { addToHistory } from '@/lib/history';
 import { loadSettings } from '@/lib/settings';
-import { color, space } from '@/theme';
+import { color, space, type as t } from '@/theme';
 
 const READING_SCREENSHOT = 'Reading the screenshot';
 
@@ -61,10 +61,13 @@ export default function Check() {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <Mono numberOfLines={2} style={{ color: color.ink }}>{text || 'Screenshot'}</Mono>
-      <Serif style={styles.title}>{error ? 'That didn’t work.' : image && !text ? 'Reading it…' : 'Reading the web…'}</Serif>
+      <TextLink label="Back" tone="muted" onPress={() => router.back()} />
+      <Serif style={styles.title}>{error ? 'That didn’t work.' : image && !text ? 'Reading it…' : 'Checking…'}</Serif>
+      <View style={styles.subject}>
+        <Body numberOfLines={3} style={{ color: text ? color.ink : color.muted }}>{text || 'Your screenshot'}</Body>
+      </View>
       {error ? (
-        <Body style={{ color: color.muted }}>{error}</Body>
+        <Body style={styles.error}>{error}</Body>
       ) : (
         <View style={styles.steps}>
           {steps.map((s, i) => (
@@ -80,8 +83,10 @@ export default function Check() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.paper, paddingHorizontal: space.gutter, paddingTop: space.lg },
-  title: { fontSize: 40, lineHeight: 44, marginTop: '30%', marginBottom: space.lg },
-  steps: { gap: space.sm + 2 },
+  screen: { flex: 1, backgroundColor: color.paper, paddingHorizontal: space.gutter, paddingTop: space.md },
+  title: { ...t.display, marginTop: space.xl },
+  subject: { backgroundColor: color.card, borderRadius: 16, padding: space.md, marginTop: space.lg },
+  error: { ...t.body, color: color.muted, marginTop: space.lg },
+  steps: { gap: space.sm + 2, marginTop: space.lg },
   step: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
 });

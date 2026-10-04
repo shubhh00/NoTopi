@@ -1,6 +1,16 @@
 import { Pressable, StyleSheet, Text, type PressableProps, type TextProps } from 'react-native';
 import { color, font } from '@/theme';
 
+/** The "no topi." wordmark, two-tone like the app icon. */
+export function Wordmark({ size = 28 }: { size?: number }) {
+  return (
+    <Text accessibilityRole="header" accessibilityLabel="NoTopi" style={{ fontFamily: font.serifItalic, fontSize: size, lineHeight: size * 1.15 }}>
+      <Text style={{ color: color.ink }}>no</Text>
+      <Text style={{ color: color.brand }}>topi.</Text>
+    </Text>
+  );
+}
+
 /** Large editorial headings and the verdict word. */
 export function Serif({ style, italic, ...rest }: TextProps & { italic?: boolean }) {
   return <Text {...rest} style={[{ fontFamily: italic ? font.serifItalic : font.serif, color: color.ink }, style]} />;
@@ -28,21 +38,13 @@ export function PrimaryButton({ label, style, ...rest }: PressableProps & { labe
   );
 }
 
-/** Secondary actions: an outlined pill. */
-export function OutlineButton({ label, style, ...rest }: PressableProps & { label: string }) {
-  return (
-    <Pressable
-      accessibilityRole="button"
-      {...rest}
-      style={(state) => [styles.outline, state.pressed && styles.pressed, typeof style === 'function' ? style(state) : style]}
-    >
-      <Text style={styles.outlineLabel}>{label}</Text>
-    </Pressable>
-  );
-}
-
-export function TextLink({ label, tone = 'ink', ...rest }: PressableProps & { label: string; tone?: 'ink' | 'muted' | 'danger' }) {
-  const c = tone === 'danger' ? color.danger : tone === 'muted' ? color.muted : color.ink;
+export function TextLink({
+  label,
+  tone = 'ink',
+  textColor,
+  ...rest
+}: PressableProps & { label: string; tone?: 'ink' | 'muted' | 'danger'; textColor?: string }) {
+  const c = textColor ?? (tone === 'danger' ? color.danger : tone === 'muted' ? color.muted : color.ink);
   return (
     <Pressable accessibilityRole="link" hitSlop={12} {...rest}>
       {({ pressed }) => <Text style={[styles.link, { color: c, opacity: pressed ? 0.6 : 1 }]}>{label}</Text>}
@@ -51,12 +53,10 @@ export function TextLink({ label, tone = 'ink', ...rest }: PressableProps & { la
 }
 
 const styles = StyleSheet.create({
-  body: { fontFamily: font.sans, fontSize: 15, lineHeight: 22, color: color.ink },
+  body: { fontFamily: font.sans, fontSize: 16, lineHeight: 24, color: color.ink },
   mono: { fontFamily: font.mono, fontSize: 12, color: color.muted },
   primary: { backgroundColor: color.ink, borderRadius: 999, paddingVertical: 15, alignItems: 'center' },
   primaryLabel: { fontFamily: font.sansMedium, fontSize: 15, color: color.paper },
-  outline: { borderWidth: 1, borderColor: color.ink, borderRadius: 999, paddingVertical: 14, alignItems: 'center' },
-  outlineLabel: { fontFamily: font.sansMedium, fontSize: 15, color: color.ink },
   pressed: { opacity: 0.75, transform: [{ scale: 0.98 }] },
-  link: { fontFamily: font.sans, fontSize: 14, textDecorationLine: 'underline' },
+  link: { fontFamily: font.sans, fontSize: 15, lineHeight: 22, textDecorationLine: 'underline' },
 });

@@ -29,8 +29,8 @@ export function ReceiptView({ receipt }: { receipt: Receipt }) {
 }
 
 const styles = StyleSheet.create({
-  receipt: { borderLeftWidth: 2, borderLeftColor: color.ink, paddingLeft: 12, paddingVertical: 2 },
-  quote: { fontFamily: font.sans, fontSize: 14, lineHeight: 21, color: color.ink },
+  receipt: { backgroundColor: color.card, borderRadius: 12, padding: 12 },
+  quote: { fontFamily: font.sans, fontSize: 15, lineHeight: 22, color: color.ink },
   marked: { backgroundColor: color.marker },
   source: { marginTop: 6 },
 });
