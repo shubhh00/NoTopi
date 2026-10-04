@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { recognizeText } from '../../modules/text-recognizer';
 import { Body, Mono, Serif } from '@/components/ui';
 import { VerdictView } from '@/components/VerdictView';
 import { describeQuery, planFor, runCheck, type CheckResult } from '@/lib/check';
@@ -11,26 +12,41 @@ import { addToHistory } from '@/lib/history';
 import { loadSettings } from '@/lib/settings';
 import { color, space } from '@/theme';
 
+const READING_SCREENSHOT = 'Reading the screenshot';
+
+/** Checks `q` (pasted or shared text) or `image` (a shared or picked screenshot, read with ML Kit first). */
 export default function Check() {
-  const { q = '' } = useLocalSearchParams<{ q: string }>();
+  const { q = '', image } = useLocalSearchParams<{ q?: string; image?: string }>();
+  // The text being checked: known straight away for text, after reading the image for screenshots.
+  const [text, setText] = useState(image ? '' : q);
   const [result, setResult] = useState<CheckResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState<Set<string>>(new Set());
 
   // One line per kind of search, ticked off as results come back.
-  const steps = useMemo(() => [...new Set(planFor(q).map(describeQuery))], [q]);
+  const steps = useMemo(
+    () => [...(image ? [READING_SCREENSHOT] : []), ...(text ? new Set(planFor(text).map(describeQuery)) : [])],
+    [image, text],
+  );
+  const tick = (step: string) => setDone((prev) => new Set(prev).add(step));
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
+        let raw = q;
+        if (image) {
+          raw = (await recognizeText(image)).trim();
+          if (cancelled) return;
+          if (!raw) throw new Error("Couldn't find any text in that image. Try pasting the message instead.");
+          tick(READING_SCREENSHOT);
+          setText(raw);
+        }
         const settings = await loadSettings();
-        const r = await runCheck(q, settings, (query) =>
-          setDone((prev) => new Set(prev).add(describeQuery(query))),
-        );
+        const r = await runCheck(raw, settings, (query) => tick(describeQuery(query)));
         if (cancelled) return;
         setResult(r);
-        await addToHistory({ raw: q, level: r.verdict.level, checkedAt: Date.now() });
+        await addToHistory({ raw, level: r.verdict.level, checkedAt: Date.now() });
         if (r.verdict.level === 'scam') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : String(e));
@@ -39,14 +55,14 @@ export default function Check() {
     return () => {
       cancelled = true;
     };
-  }, [q]);
+  }, [q, image]);
 
   if (result) return <VerdictView result={result} />;
 
   return (
     <SafeAreaView style={styles.screen}>
-      <Mono numberOfLines={2} style={{ color: color.ink }}>{q}</Mono>
-      <Serif style={styles.title}>{error ? 'That didn’t work.' : 'Reading the web…'}</Serif>
+      <Mono numberOfLines={2} style={{ color: color.ink }}>{text || 'Screenshot'}</Mono>
+      <Serif style={styles.title}>{error ? 'That didn’t work.' : image && !text ? 'Reading it…' : 'Reading the web…'}</Serif>
       {error ? (
         <Body style={{ color: color.muted }}>{error}</Body>
       ) : (

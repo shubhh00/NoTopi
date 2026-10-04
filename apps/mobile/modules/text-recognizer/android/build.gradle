@@ -1,0 +1,20 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'app.notopi'
+version = '0.1.0'
+
+android {
+  namespace "app.notopi.ocr"
+  defaultConfig {
+    versionCode 1
+    versionName "0.1.0"
+  }
+}
+
+dependencies {
+  // Bundled model: works offline from first launch, nothing downloaded at runtime.
+  implementation "com.google.mlkit:text-recognition:16.0.1"
+}

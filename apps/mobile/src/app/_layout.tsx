@@ -6,9 +6,13 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { LogBox } from 'react-native';
 import { color } from '@/theme';
 
 SplashScreen.preventAutoHideAsync();
+
+// Development-only notice when the phone has "reduce motion" on. Animations already respect it.
+LogBox.ignoreLogs(['[Reanimated] Reduced motion setting is enabled']);
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({

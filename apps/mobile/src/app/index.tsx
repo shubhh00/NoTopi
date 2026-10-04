@@ -1,4 +1,5 @@
 import * as Clipboard from 'expo-clipboard';
+import * as ImagePicker from 'expo-image-picker';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
@@ -6,6 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Body, Mono, Serif, TextLink } from '@/components/ui';
 import { Hairline } from '@/components/ReceiptView';
 import { loadHistory, shortLabel, type HistoryEntry } from '@/lib/history';
+import { useIncomingShare } from '@/lib/share';
+import { isTextRecognitionAvailable } from '../../modules/text-recognizer';
 import { color, font, space, verdictColor } from '@/theme';
 
 const LEVEL_LABEL = { scam: 'Scam', suspicious: 'Suspicious', clean: 'Clean', unknown: 'Unsure' } as const;
@@ -33,6 +36,16 @@ export default function Home() {
     if (clip) setText(clip);
   };
 
+  // Android's photo picker: no storage permission needed, the user picks one image.
+  const pickScreenshot = async () => {
+    const picked = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'] });
+    if (!picked.canceled && picked.assets[0]) {
+      router.push({ pathname: '/check', params: { image: picked.assets[0].uri } });
+    }
+  };
+
+  useIncomingShare();
+
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
@@ -45,7 +58,7 @@ export default function Home() {
           <View style={styles.hero}>
             <Serif style={styles.headline}>Something feel off?</Serif>
             <Body style={styles.sub}>
-              Paste a message, number, link or app. Or share it here from any app.
+              Paste a message, number, link, app or shop name. Or share it here from any app.
             </Body>
 
             <View style={styles.inputRow}>
@@ -71,6 +84,11 @@ export default function Home() {
                 <TextLink label="Paste" onPress={paste} />
               )}
             </View>
+            {isTextRecognitionAvailable && (
+              <View style={styles.secondary}>
+                <TextLink label="Check a screenshot" tone="muted" onPress={pickScreenshot} />
+              </View>
+            )}
           </View>
 
           {history.length > 0 && (
@@ -119,6 +137,7 @@ const styles = StyleSheet.create({
     paddingBottom: space.sm,
   },
   input: { flex: 1, fontFamily: font.sans, fontSize: 17, color: color.ink, maxHeight: 140, paddingVertical: 6 },
+  secondary: { marginTop: space.md, alignItems: 'flex-start' },
   go: { width: 42, height: 42, borderRadius: 21, backgroundColor: color.ink, alignItems: 'center', justifyContent: 'center' },
   goArrow: { color: color.paper, fontSize: 20, lineHeight: 22 },
   history: { marginTop: space.xl + space.md },

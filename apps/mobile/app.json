@@ -22,6 +22,7 @@
       "predictiveBackGestureEnabled": true
     },
     "plugins": [
+      "./plugins/withShareIntent",
       "expo-router",
       "expo-secure-store",
       "expo-sqlite",
