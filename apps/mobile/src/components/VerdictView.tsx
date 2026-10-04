@@ -39,7 +39,7 @@ function SignalRow({ signal }: { signal: Signal }) {
 
 export function VerdictView({ result }: { result: CheckResult }) {
   const insets = useSafeAreaInsets();
-  const { verdict, offline } = result;
+  const { verdict } = result;
   const c = verdictColor[verdict.level];
   const risky = verdict.level === 'scam' || verdict.level === 'suspicious';
   const advice = verdict.pattern?.pattern.advice.verdict ?? GENERIC_ADVICE[verdict.level];
@@ -58,7 +58,7 @@ export function VerdictView({ result }: { result: CheckResult }) {
           <Animated.View entering={FadeIn.delay(350).duration(400)}>
             {verdict.pattern && (
               <Body style={[styles.patternName, { color: c.fg }]}>
-                This is the {verdict.pattern.pattern.name.toLowerCase()} scam.
+                Looks like the “{verdict.pattern.pattern.name}” scam.
               </Body>
             )}
             <Body style={[styles.advice, { color: c.fg }]}>{advice}</Body>
@@ -67,12 +67,21 @@ export function VerdictView({ result }: { result: CheckResult }) {
         </Animated.View>
 
         <Animated.View entering={FadeIn.delay(500).duration(400)} style={styles.body}>
-          {offline && (
+          {result.search === 'no-key' && (
             <View style={styles.notice}>
               <Body style={styles.noticeText}>
-                Checked offline. Add a SerpApi key to search the web, news and Play Store for reports.
+                Checked offline. Add a SerpApi key or a NoTopi server to search the web and police warnings for reports.
               </Body>
-              <TextLink label="Add a key" onPress={() => router.push('/settings')} />
+              <TextLink label="Open settings" onPress={() => router.push('/settings')} />
+            </View>
+          )}
+          {result.search === 'failed' && (
+            <View style={styles.notice}>
+              <Body style={styles.noticeText}>
+                Couldn't search the web{result.searchError ? ` (${result.searchError})` : ''}, so this was checked offline.
+                If you use a NoTopi server, check it's running and reachable from this phone.
+              </Body>
+              <TextLink label="Open settings" onPress={() => router.push('/settings')} />
             </View>
           )}
 
