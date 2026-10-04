@@ -1,0 +1,130 @@
+# The parts almost every scam message is built from, whatever story it tells.
+# These catch scams that have no pattern file yet. Keep terms specific: a word that appears in
+# lots of ordinary messages (like "sir" or "documents") causes false alarms.
+
+# Who the message claims to be. Government and bank claims matter most: real ones never
+# ask you to call a personal mobile number.
+authorities:
+  government:
+    - govt of india
+    - government of india
+    - govt. of india
+    - election commission
+    - eci
+    - uidai
+    - income tax department
+    - cbi
+    - ncb
+    - enforcement directorate
+    - customs
+    - police
+    - cyber cell
+    - cyber crime
+    - trai
+    - department of telecom
+    - court
+    - ministry
+    - electricity board
+    - electricity department
+    - rto
+    - parivahan
+    - epfo
+    - passport office
+    - सरकार
+    - पुलिस
+  bank:
+    - bank
+    - sbi
+    - hdfc
+    - icici
+    - axis bank
+    - kotak
+    - pnb
+    - bank of baroda
+    - canara bank
+    - rbi
+    - reserve bank
+  brand:
+    - amazon
+    - flipkart
+    - paytm
+    - phonepe
+    - google pay
+    - swiggy
+    - zomato
+    - airtel
+    - jio
+    - fedex
+    - dhl
+    - blue dart
+    - india post
+
+# What pushes you to act: a threat of losing something, or a prize to gain.
+hooks:
+  threat:
+    - blocked
+    - suspended
+    - cancelled
+    - deactivated
+    - disconnected
+    - not matched
+    - mismatch
+    - expired
+    - legal action
+    - arrest
+    - warrant
+    - penalty
+    - seized
+    - frozen
+    - terminated
+    - case registered
+    - final notice
+    - last warning
+    - बंद
+    - रद्द
+  reward:
+    - you have won
+    - winner
+    - lottery
+    - prize
+    - cashback
+    - reward points
+    - congratulations
+    - free gift
+    - selected for
+    - bonus
+
+# What it asks you to hand over or do.
+asks:
+  - otp
+  - upi pin
+  - atm pin
+  - mpin
+  - enter pin
+  - cvv
+  - password
+  - aadhaar number
+  - pan number
+  - bank details
+  - card number
+  - screen share
+  - share screen
+  - anydesk
+  - teamviewer
+  - quicksupport
+  - processing fee
+  - registration fee
+  - security deposit
+  - pay the fee
+  - pay now
+
+# Ways it moves you away from official channels (besides links and phone numbers,
+# which are detected automatically).
+off_channel:
+  - whatsapp
+  - telegram
+  - click here
+  - click the link
+  - download
+  - install
+  - .apk

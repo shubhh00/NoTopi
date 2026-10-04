@@ -1,0 +1,36 @@
+id: sextortion
+name: Video call blackmail
+summary: A stranger video-calls with explicit content, records your face, then threatens to send the clip to your family or post it online unless you pay. Fake "police" or "YouTube" calls often follow.
+points: 30
+phrases:
+  strong:
+    - recorded your video
+    - video will be uploaded
+    - send to your family
+    - pay or we will viral
+    - delete the video for
+    - youtube officer
+    - वीडियो वायरल कर देंगे
+  weak:
+    - video
+    - viral
+    - family
+    - facebook
+    - instagram
+    - pay
+    - delete
+    - police
+    - case
+    - nude
+min_weak: 3
+news_query: sextortion video call scam police advisory
+advice:
+  verdict: This is blackmail. Paying almost never ends it. You're not alone and you're not in trouble.
+  steps:
+    - Don't pay and stop replying.
+    - Take screenshots, then block the account and number.
+    - Report it at cybercrime.gov.in (you can choose "report anonymously" for this category) or call 1930.
+    - Talk to someone you trust. The threat loses power once it's out in the open.
+  helplines: ["1930"]
+sources:
+  - https://cybercrime.gov.in

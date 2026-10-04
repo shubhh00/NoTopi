@@ -1,0 +1,38 @@
+id: kyc-update
+name: KYC update
+summary: A message claims your bank account, SIM or wallet will be blocked unless you update KYC through a link or by sharing an OTP.
+points: 25
+phrases:
+  strong:
+    - kyc will be suspended
+    - kyc has expired
+    - complete your kyc
+    - update your kyc immediately
+    - account will be blocked today
+    - pan card not updated
+    - sim will be deactivated
+    - केवाईसी अपडेट
+  weak:
+    - kyc
+    - pan
+    - aadhaar
+    - blocked
+    - suspended
+    - click
+    - link
+    - urgent
+    - today
+    - dear customer
+    - otp
+min_weak: 3
+news_query: KYC update fraud SMS bank warning
+advice:
+  verdict: Banks don't block accounts over SMS links. Never update KYC from a link in a message.
+  steps:
+    - Don't open the link or share any OTP.
+    - Check with your bank using the number on your card or passbook.
+    - Report the SMS on Sanchar Saathi (Chakshu) and forward it to 1909 to flag the sender.
+  helplines: ["1930"]
+sources:
+  - https://sancharsaathi.gov.in
+  - https://sachet.rbi.org.in

@@ -1,0 +1,895 @@
+{
+  "region": "in",
+  "patterns": [
+    {
+      "id": "apk-file",
+      "name": "Fake app file",
+      "summary": "A WhatsApp message sends an .apk file disguised as a traffic challan, wedding invite, bank app or bill. Installing it lets scammers read your OTPs and take over your accounts.",
+      "points": 35,
+      "phrases": {
+        "strong": [
+          ".apk",
+          "challan.apk",
+          "rto challan",
+          "e-challan pending",
+          "wedding invitation.apk",
+          "install this app to pay",
+          "pm kisan.apk"
+        ],
+        "weak": [
+          "challan",
+          "traffic",
+          "rto",
+          "parivahan",
+          "install",
+          "download",
+          "invitation",
+          "file",
+          "app"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "APK file WhatsApp challan scam",
+      "advice": {
+        "verdict": "Government departments and banks never send app files on WhatsApp. Don't install it.",
+        "steps": [
+          "Delete the file without opening it.",
+          "If you installed it, turn on airplane mode, uninstall it, and change your banking passwords from another device.",
+          "Check real challans only on echallan.parivahan.gov.in.",
+          "If money was taken, call 1930."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://echallan.parivahan.gov.in",
+        "https://www.cert-in.org.in"
+      ],
+      "_file": "apk-file"
+    },
+    {
+      "id": "digital-arrest",
+      "name": "Digital arrest",
+      "summary": "Callers pose as CBI, customs, police or a court, claim a parcel or SIM in your name is linked to a crime, keep you on a video call and demand money to \"clear\" your name.",
+      "points": 30,
+      "phrases": {
+        "strong": [
+          "digital arrest",
+          "digitally arrested",
+          "डिजिटल अरेस्ट",
+          "parcel contains drugs",
+          "parcel with drugs",
+          "money laundering case against you",
+          "arrest warrant in your name",
+          "stay on video call",
+          "do not disconnect the call",
+          "verification of your funds"
+        ],
+        "weak": [
+          "cbi",
+          "ncb",
+          "customs",
+          "cyber crime branch",
+          "mumbai police",
+          "fedex",
+          "dhl",
+          "parcel",
+          "aadhaar",
+          "warrant",
+          "skype",
+          "video call",
+          "rbi account",
+          "secret",
+          "don't tell anyone",
+          "किसी को मत बताना"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "digital arrest scam police advisory",
+      "advice": {
+        "verdict": "No police or agency in India arrests anyone over a phone or video call. Hang up and don't pay.",
+        "steps": [
+          "Hang up and stop any screen sharing.",
+          "Don't send money, OTPs, Aadhaar or bank details.",
+          "If you already paid, call 1930 right away. Money reported quickly can often be frozen.",
+          "File a complaint at cybercrime.gov.in with the numbers and screenshots."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://cybercrime.gov.in",
+        "https://www.pib.gov.in"
+      ],
+      "_file": "digital-arrest"
+    },
+    {
+      "id": "electricity-cutoff",
+      "name": "Electricity disconnection",
+      "summary": "An SMS says your power will be cut tonight because the last bill wasn't updated and asks you to call an \"electricity officer\", who then gets you to install a remote-access app or pay.",
+      "points": 25,
+      "phrases": {
+        "strong": [
+          "electricity will be disconnected",
+          "power will be disconnected tonight",
+          "your electricity connection will be cut",
+          "previous month bill was not updated",
+          "contact electricity officer",
+          "बिजली कनेक्शन काट दिया जाएगा"
+        ],
+        "weak": [
+          "electricity",
+          "bijli",
+          "disconnected",
+          "tonight",
+          "9.30 pm",
+          "bill",
+          "officer",
+          "call immediately",
+          "dear consumer"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "electricity bill disconnection SMS scam",
+      "advice": {
+        "verdict": "Power companies don't send disconnection threats with a personal mobile number. Don't call it.",
+        "steps": [
+          "Don't call the number and don't install any app they suggest (AnyDesk, TeamViewer, \"bill update\" APKs).",
+          "Check your bill on your power company's official app or website.",
+          "If you installed something or paid, call 1930."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://cybercrime.gov.in"
+      ],
+      "_file": "electricity-cutoff"
+    },
+    {
+      "id": "investment-tips",
+      "name": "Stock tips group",
+      "summary": "A WhatsApp or Telegram \"investment club\" shares stock tips, shows fake profits in a trading app and asks for more deposits. Withdrawals never work.",
+      "points": 30,
+      "phrases": {
+        "strong": [
+          "guaranteed returns",
+          "ipo allotment guaranteed",
+          "institutional account",
+          "vip stock group",
+          "300% profit",
+          "withdrawal requires tax payment",
+          "pay tax to withdraw",
+          "गारंटीड रिटर्न"
+        ],
+        "weak": [
+          "stock",
+          "ipo",
+          "trading app",
+          "profit",
+          "returns",
+          "whatsapp group",
+          "telegram",
+          "mentor",
+          "professor",
+          "deposit",
+          "withdraw",
+          "sebi registered"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "stock market investment WhatsApp group fraud",
+      "advice": {
+        "verdict": "Nobody can guarantee stock returns. Apps that need \"tax\" before withdrawal are fake.",
+        "steps": [
+          "Don't deposit more, even to \"unlock\" a withdrawal.",
+          "Check the adviser on SEBI's intermediary search (sebi.gov.in).",
+          "Report the group and app at cybercrime.gov.in or call 1930."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://www.sebi.gov.in",
+        "https://cybercrime.gov.in"
+      ],
+      "_file": "investment-tips"
+    },
+    {
+      "id": "kyc-update",
+      "name": "KYC update",
+      "summary": "A message claims your bank account, SIM or wallet will be blocked unless you update KYC through a link or by sharing an OTP.",
+      "points": 25,
+      "phrases": {
+        "strong": [
+          "kyc will be suspended",
+          "kyc has expired",
+          "complete your kyc",
+          "update your kyc immediately",
+          "account will be blocked today",
+          "pan card not updated",
+          "sim will be deactivated",
+          "केवाईसी अपडेट"
+        ],
+        "weak": [
+          "kyc",
+          "pan",
+          "aadhaar",
+          "blocked",
+          "suspended",
+          "click",
+          "link",
+          "urgent",
+          "today",
+          "dear customer",
+          "otp"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "KYC update fraud SMS bank warning",
+      "advice": {
+        "verdict": "Banks don't block accounts over SMS links. Never update KYC from a link in a message.",
+        "steps": [
+          "Don't open the link or share any OTP.",
+          "Check with your bank using the number on your card or passbook.",
+          "Report the SMS on Sanchar Saathi (Chakshu) and forward it to 1909 to flag the sender."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://sancharsaathi.gov.in",
+        "https://sachet.rbi.org.in"
+      ],
+      "_file": "kyc-update"
+    },
+    {
+      "id": "loan-app-harassment",
+      "name": "Illegal loan app",
+      "summary": "An instant-loan app gives a small loan with hidden charges, takes your contacts and photos, then threatens you or messages your contacts with morphed photos to force repayment.",
+      "points": 30,
+      "phrases": {
+        "strong": [
+          "morphed photo",
+          "send to all your contacts",
+          "we will message your contacts",
+          "your photos will be viral",
+          "loan recovery agent",
+          "repay today or face consequences",
+          "तुम्हारी फोटो वायरल"
+        ],
+        "weak": [
+          "loan",
+          "instant loan",
+          "recovery",
+          "overdue",
+          "contacts",
+          "photos",
+          "family",
+          "defaulter",
+          "police complaint",
+          "gali",
+          "harass"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "illegal loan app harassment RBI police",
+      "advice": {
+        "verdict": "Lenders aren't allowed to threaten you or contact your family. This harassment is illegal.",
+        "steps": [
+          "Don't pay more to make it stop. Payments usually lead to bigger demands.",
+          "Take screenshots of every threat and number.",
+          "Report it at cybercrime.gov.in and on RBI Sachet (sachet.rbi.org.in).",
+          "Tell your close contacts that any edited photos are fake."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://sachet.rbi.org.in",
+        "https://cybercrime.gov.in"
+      ],
+      "_file": "loan-app-harassment"
+    },
+    {
+      "id": "lottery-prize",
+      "name": "Lottery or prize",
+      "summary": "You're told you've won a KBC lottery, a lucky draw or a car, but must pay a \"processing fee\" or \"GST\" first.",
+      "points": 25,
+      "phrases": {
+        "strong": [
+          "kbc lottery",
+          "you have won 25 lakh",
+          "lucky draw winner",
+          "lottery department",
+          "pay processing fee to claim",
+          "pay gst to claim",
+          "कौन बनेगा करोड़पति लॉटरी"
+        ],
+        "weak": [
+          "lottery",
+          "prize",
+          "winner",
+          "lakh",
+          "claim",
+          "processing fee",
+          "gst",
+          "whatsapp",
+          "congratulations",
+          "car"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "KBC lottery WhatsApp fraud",
+      "advice": {
+        "verdict": "You can't win a lottery you never entered, and real prizes never ask for a fee.",
+        "steps": [
+          "Don't pay any fee or share bank details.",
+          "Block the number.",
+          "Report it at cybercrime.gov.in or on Sanchar Saathi (Chakshu)."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://sancharsaathi.gov.in"
+      ],
+      "_file": "lottery-prize"
+    },
+    {
+      "id": "sextortion",
+      "name": "Video call blackmail",
+      "summary": "A stranger video-calls with explicit content, records your face, then threatens to send the clip to your family or post it online unless you pay. Fake \"police\" or \"YouTube\" calls often follow.",
+      "points": 30,
+      "phrases": {
+        "strong": [
+          "recorded your video",
+          "video will be uploaded",
+          "send to your family",
+          "pay or we will viral",
+          "delete the video for",
+          "youtube officer",
+          "वीडियो वायरल कर देंगे"
+        ],
+        "weak": [
+          "video",
+          "viral",
+          "family",
+          "facebook",
+          "instagram",
+          "pay",
+          "delete",
+          "police",
+          "case",
+          "nude"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "sextortion video call scam police advisory",
+      "advice": {
+        "verdict": "This is blackmail. Paying almost never ends it. You're not alone and you're not in trouble.",
+        "steps": [
+          "Don't pay and stop replying.",
+          "Take screenshots, then block the account and number.",
+          "Report it at cybercrime.gov.in (you can choose \"report anonymously\" for this category) or call 1930.",
+          "Talk to someone you trust. The threat loses power once it's out in the open."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://cybercrime.gov.in"
+      ],
+      "_file": "sextortion"
+    },
+    {
+      "id": "task-job",
+      "name": "Part-time task job",
+      "summary": "You're offered easy money for liking videos, rating hotels or reviewing products. Small first payouts build trust, then you're asked to \"invest\" to unlock bigger tasks and the money disappears.",
+      "points": 25,
+      "phrases": {
+        "strong": [
+          "like youtube videos and earn",
+          "earn daily by liking",
+          "prepaid task",
+          "merchant task",
+          "recharge to unlock tasks",
+          "complete tasks to withdraw",
+          "work from home earn 5000 daily",
+          "घर बैठे कमाएं"
+        ],
+        "weak": [
+          "part time job",
+          "part-time",
+          "work from home",
+          "daily income",
+          "telegram",
+          "task",
+          "commission",
+          "hr manager",
+          "salary per day",
+          "google reviews",
+          "hotel rating",
+          "no experience needed"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "part time task job scam telegram police",
+      "advice": {
+        "verdict": "Real jobs never ask you to pay or \"recharge\" to unlock work. This is a task scam.",
+        "steps": [
+          "Stop paying. Any money you put in now won't come back.",
+          "Leave the Telegram or WhatsApp group and block the \"HR\" contact.",
+          "If you've lost money, call 1930 and report it at cybercrime.gov.in."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://cybercrime.gov.in"
+      ],
+      "_file": "task-job"
+    },
+    {
+      "id": "upi-collect",
+      "name": "UPI \"receive money\" trick",
+      "summary": "A buyer, refund agent or \"army officer\" sends a UPI collect request or QR code and says entering your PIN will credit money to you. It debits you instead.",
+      "points": 30,
+      "phrases": {
+        "strong": [
+          "enter pin to receive",
+          "scan qr to receive money",
+          "accept the request to get refund",
+          "i sent you collect request",
+          "army officer buying",
+          "पैसे पाने के लिए पिन"
+        ],
+        "weak": [
+          "upi",
+          "pin",
+          "qr",
+          "collect request",
+          "refund",
+          "olx",
+          "buyer",
+          "advance",
+          "google pay",
+          "phonepe",
+          "paytm"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "UPI collect request fraud QR code scam",
+      "advice": {
+        "verdict": "You never need your UPI PIN or a QR scan to receive money. Entering it sends money out.",
+        "steps": [
+          "Decline the request. Don't enter your PIN.",
+          "If money was debited, call 1930 and your bank right away.",
+          "Report the UPI ID in your payment app."
+        ],
+        "helplines": [
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://www.npci.org.in",
+        "https://cybercrime.gov.in"
+      ],
+      "_file": "upi-collect"
+    },
+    {
+      "id": "voter-sir",
+      "name": "Voter list (SIR)",
+      "summary": "Rides on the Election Commission's Special Intensive Revision (SIR) of voter lists. An SMS says your voter documents \"don't match\" and asks you to call an \"ECI officer\", who then asks for OTPs, Aadhaar details or a fee to keep your name on the list.",
+      "points": 30,
+      "phrases": {
+        "strong": [
+          "sir investigation",
+          "documents are not matched",
+          "contact our eci officer",
+          "eci officer",
+          "name will be removed from voter list",
+          "voter id will be cancelled",
+          "voter id will be blocked",
+          "वोटर लिस्ट से नाम हटा"
+        ],
+        "weak": [
+          "voter",
+          "voter list",
+          "eci",
+          "election commission",
+          "epic",
+          "father name",
+          "not matched",
+          "govt",
+          "blo"
+        ]
+      },
+      "min_weak": 3,
+      "news_query": "SIR voter list fraud call SMS ECI officer",
+      "advice": {
+        "verdict": "The Election Commission doesn't ask you to call a private mobile number. Don't call it or share OTPs.",
+        "steps": [
+          "Don't call the number and don't share OTPs, Aadhaar or bank details.",
+          "Check your voter list status yourself on voters.eci.gov.in or call the official Voter Helpline, 1950.",
+          "Your Booth Level Officer (BLO) visits in person with ID. They never charge a fee.",
+          "If you shared details or paid, call 1930 and report it at cybercrime.gov.in."
+        ],
+        "helplines": [
+          "1950",
+          "1930"
+        ]
+      },
+      "sources": [
+        "https://voters.eci.gov.in",
+        "https://www.eci.gov.in"
+      ],
+      "_file": "voter-sir"
+    }
+  ],
+  "brands": {
+    "brands": [
+      {
+        "name": "SBI",
+        "keywords": [
+          "sbi",
+          "onlinesbi",
+          "yonosbi",
+          "yono"
+        ],
+        "domains": [
+          "sbi.co.in",
+          "onlinesbi.sbi",
+          "sbi",
+          "sbicard.com"
+        ]
+      },
+      {
+        "name": "HDFC Bank",
+        "keywords": [
+          "hdfc"
+        ],
+        "domains": [
+          "hdfcbank.com",
+          "hdfc.com"
+        ]
+      },
+      {
+        "name": "ICICI Bank",
+        "keywords": [
+          "icici"
+        ],
+        "domains": [
+          "icicibank.com"
+        ]
+      },
+      {
+        "name": "Axis Bank",
+        "keywords": [
+          "axisbank",
+          "axis-bank"
+        ],
+        "domains": [
+          "axisbank.com"
+        ]
+      },
+      {
+        "name": "Paytm",
+        "keywords": [
+          "paytm"
+        ],
+        "domains": [
+          "paytm.com",
+          "paytmbank.com"
+        ]
+      },
+      {
+        "name": "PhonePe",
+        "keywords": [
+          "phonepe"
+        ],
+        "domains": [
+          "phonepe.com"
+        ]
+      },
+      {
+        "name": "Google Pay",
+        "keywords": [
+          "gpay",
+          "googlepay"
+        ],
+        "domains": [
+          "pay.google.com",
+          "google.com"
+        ]
+      },
+      {
+        "name": "Amazon",
+        "keywords": [
+          "amazon",
+          "amzn"
+        ],
+        "domains": [
+          "amazon.in",
+          "amazon.com",
+          "amzn.in",
+          "amzn.to"
+        ]
+      },
+      {
+        "name": "Flipkart",
+        "keywords": [
+          "flipkart"
+        ],
+        "domains": [
+          "flipkart.com",
+          "fkrt.it"
+        ]
+      },
+      {
+        "name": "IRCTC",
+        "keywords": [
+          "irctc"
+        ],
+        "domains": [
+          "irctc.co.in"
+        ]
+      },
+      {
+        "name": "India Post",
+        "keywords": [
+          "indiapost",
+          "india-post",
+          "speedpost"
+        ],
+        "domains": [
+          "indiapost.gov.in"
+        ]
+      },
+      {
+        "name": "UIDAI (Aadhaar)",
+        "keywords": [
+          "uidai",
+          "aadhaar",
+          "aadhar"
+        ],
+        "domains": [
+          "uidai.gov.in",
+          "myaadhaar.uidai.gov.in"
+        ]
+      },
+      {
+        "name": "Income Tax",
+        "keywords": [
+          "incometax",
+          "income-tax",
+          "itr-refund"
+        ],
+        "domains": [
+          "incometax.gov.in"
+        ]
+      },
+      {
+        "name": "EPFO",
+        "keywords": [
+          "epfo",
+          "pf-claim",
+          "uan"
+        ],
+        "domains": [
+          "epfindia.gov.in"
+        ]
+      },
+      {
+        "name": "Parivahan (challan)",
+        "keywords": [
+          "parivahan",
+          "echallan",
+          "e-challan",
+          "challan",
+          "rto"
+        ],
+        "domains": [
+          "parivahan.gov.in"
+        ]
+      },
+      {
+        "name": "LIC",
+        "keywords": [
+          "lic"
+        ],
+        "domains": [
+          "licindia.in"
+        ]
+      }
+    ],
+    "risky_tlds": [
+      "xyz",
+      "top",
+      "click",
+      "buzz",
+      "icu",
+      "cyou",
+      "sbs",
+      "cfd",
+      "rest",
+      "monster",
+      "live",
+      "online",
+      "site",
+      "shop",
+      "vip",
+      "apk"
+    ],
+    "shorteners": [
+      "bit.ly",
+      "tinyurl.com",
+      "cutt.ly",
+      "is.gd",
+      "t.ly",
+      "rb.gy",
+      "shorturl.at",
+      "tiny.cc",
+      "ow.ly",
+      "s.id"
+    ]
+  },
+  "official": {
+    "domains": [
+      "gov.in",
+      "nic.in",
+      "rbi.org.in",
+      "cert-in.org.in",
+      "npci.org.in"
+    ],
+    "x_handles": [
+      "Cyberdost",
+      "MumbaiPolice",
+      "DelhiPolice",
+      "blrcitypolice",
+      "hydcitypolice",
+      "cyberabadpolice",
+      "PuneCityPolice",
+      "KolkataPolice",
+      "Uppolice",
+      "PIBFactCheck"
+    ]
+  },
+  "anatomy": {
+    "authorities": {
+      "government": [
+        "govt of india",
+        "government of india",
+        "govt. of india",
+        "election commission",
+        "eci",
+        "uidai",
+        "income tax department",
+        "cbi",
+        "ncb",
+        "enforcement directorate",
+        "customs",
+        "police",
+        "cyber cell",
+        "cyber crime",
+        "trai",
+        "department of telecom",
+        "court",
+        "ministry",
+        "electricity board",
+        "electricity department",
+        "rto",
+        "parivahan",
+        "epfo",
+        "passport office",
+        "सरकार",
+        "पुलिस"
+      ],
+      "bank": [
+        "bank",
+        "sbi",
+        "hdfc",
+        "icici",
+        "axis bank",
+        "kotak",
+        "pnb",
+        "bank of baroda",
+        "canara bank",
+        "rbi",
+        "reserve bank"
+      ],
+      "brand": [
+        "amazon",
+        "flipkart",
+        "paytm",
+        "phonepe",
+        "google pay",
+        "swiggy",
+        "zomato",
+        "airtel",
+        "jio",
+        "fedex",
+        "dhl",
+        "blue dart",
+        "india post"
+      ]
+    },
+    "hooks": {
+      "threat": [
+        "blocked",
+        "suspended",
+        "cancelled",
+        "deactivated",
+        "disconnected",
+        "not matched",
+        "mismatch",
+        "expired",
+        "legal action",
+        "arrest",
+        "warrant",
+        "penalty",
+        "seized",
+        "frozen",
+        "terminated",
+        "case registered",
+        "final notice",
+        "last warning",
+        "बंद",
+        "रद्द"
+      ],
+      "reward": [
+        "you have won",
+        "winner",
+        "lottery",
+        "prize",
+        "cashback",
+        "reward points",
+        "congratulations",
+        "free gift",
+        "selected for",
+        "bonus"
+      ]
+    },
+    "asks": [
+      "otp",
+      "upi pin",
+      "atm pin",
+      "mpin",
+      "enter pin",
+      "cvv",
+      "password",
+      "aadhaar number",
+      "pan number",
+      "bank details",
+      "card number",
+      "screen share",
+      "share screen",
+      "anydesk",
+      "teamviewer",
+      "quicksupport",
+      "processing fee",
+      "registration fee",
+      "security deposit",
+      "pay the fee",
+      "pay now"
+    ],
+    "off_channel": [
+      "whatsapp",
+      "telegram",
+      "click here",
+      "click the link",
+      "download",
+      "install",
+      ".apk"
+    ]
+  }
+}

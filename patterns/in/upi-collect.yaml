@@ -1,0 +1,36 @@
+id: upi-collect
+name: UPI "receive money" trick
+summary: A buyer, refund agent or "army officer" sends a UPI collect request or QR code and says entering your PIN will credit money to you. It debits you instead.
+points: 30
+phrases:
+  strong:
+    - enter pin to receive
+    - scan qr to receive money
+    - accept the request to get refund
+    - i sent you collect request
+    - army officer buying
+    - पैसे पाने के लिए पिन
+  weak:
+    - upi
+    - pin
+    - qr
+    - collect request
+    - refund
+    - olx
+    - buyer
+    - advance
+    - google pay
+    - phonepe
+    - paytm
+min_weak: 3
+news_query: UPI collect request fraud QR code scam
+advice:
+  verdict: You never need your UPI PIN or a QR scan to receive money. Entering it sends money out.
+  steps:
+    - Decline the request. Don't enter your PIN.
+    - If money was debited, call 1930 and your bank right away.
+    - Report the UPI ID in your payment app.
+  helplines: ["1930"]
+sources:
+  - https://www.npci.org.in
+  - https://cybercrime.gov.in

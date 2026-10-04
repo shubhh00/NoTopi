@@ -1,0 +1,21 @@
+{
+  "name": "@notopi/engine",
+  "version": "0.1.0",
+  "description": "Rules that turn web evidence into a scam verdict. No network, no React.",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "patterns:build": "node scripts/build-patterns.mjs",
+    "patterns:check": "node scripts/build-patterns.mjs --check && vitest run test/patterns.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "^5.6.0",
+    "vitest": "^3.2.0",
+    "yaml": "^2.6.0"
+  }
+}

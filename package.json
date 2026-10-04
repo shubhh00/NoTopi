@@ -1,0 +1,14 @@
+{
+  "name": "notopi",
+  "private": true,
+  "description": "Paste anything suspicious. Get proof. An open-source scam checker for India.",
+  "license": "MIT",
+  "workspaces": [
+    "apps/mobile",
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "npm run test --workspace @notopi/engine",
+    "patterns:check": "npm run patterns:check --workspace @notopi/engine"
+  }
+}

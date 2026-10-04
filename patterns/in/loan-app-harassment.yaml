@@ -1,0 +1,38 @@
+id: loan-app-harassment
+name: Illegal loan app
+summary: An instant-loan app gives a small loan with hidden charges, takes your contacts and photos, then threatens you or messages your contacts with morphed photos to force repayment.
+points: 30
+phrases:
+  strong:
+    - morphed photo
+    - send to all your contacts
+    - we will message your contacts
+    - your photos will be viral
+    - loan recovery agent
+    - repay today or face consequences
+    - तुम्हारी फोटो वायरल
+  weak:
+    - loan
+    - instant loan
+    - recovery
+    - overdue
+    - contacts
+    - photos
+    - family
+    - defaulter
+    - police complaint
+    - gali
+    - harass
+min_weak: 3
+news_query: illegal loan app harassment RBI police
+advice:
+  verdict: Lenders aren't allowed to threaten you or contact your family. This harassment is illegal.
+  steps:
+    - Don't pay more to make it stop. Payments usually lead to bigger demands.
+    - Take screenshots of every threat and number.
+    - Report it at cybercrime.gov.in and on RBI Sachet (sachet.rbi.org.in).
+    - Tell your close contacts that any edited photos are fake.
+  helplines: ["1930"]
+sources:
+  - https://sachet.rbi.org.in
+  - https://cybercrime.gov.in

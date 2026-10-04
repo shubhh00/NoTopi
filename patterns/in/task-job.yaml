@@ -1,0 +1,38 @@
+id: task-job
+name: Part-time task job
+summary: You're offered easy money for liking videos, rating hotels or reviewing products. Small first payouts build trust, then you're asked to "invest" to unlock bigger tasks and the money disappears.
+points: 25
+phrases:
+  strong:
+    - like youtube videos and earn
+    - earn daily by liking
+    - prepaid task
+    - merchant task
+    - recharge to unlock tasks
+    - complete tasks to withdraw
+    - work from home earn 5000 daily
+    - घर बैठे कमाएं
+  weak:
+    - part time job
+    - part-time
+    - work from home
+    - daily income
+    - telegram
+    - task
+    - commission
+    - hr manager
+    - salary per day
+    - google reviews
+    - hotel rating
+    - no experience needed
+min_weak: 3
+news_query: part time task job scam telegram police
+advice:
+  verdict: Real jobs never ask you to pay or "recharge" to unlock work. This is a task scam.
+  steps:
+    - Stop paying. Any money you put in now won't come back.
+    - Leave the Telegram or WhatsApp group and block the "HR" contact.
+    - If you've lost money, call 1930 and report it at cybercrime.gov.in.
+  helplines: ["1930"]
+sources:
+  - https://cybercrime.gov.in

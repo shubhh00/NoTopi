@@ -1,0 +1,36 @@
+id: apk-file
+name: Fake app file
+summary: A WhatsApp message sends an .apk file disguised as a traffic challan, wedding invite, bank app or bill. Installing it lets scammers read your OTPs and take over your accounts.
+points: 35
+phrases:
+  strong:
+    - .apk
+    - challan.apk
+    - rto challan
+    - e-challan pending
+    - wedding invitation.apk
+    - install this app to pay
+    - pm kisan.apk
+  weak:
+    - challan
+    - traffic
+    - rto
+    - parivahan
+    - install
+    - download
+    - invitation
+    - file
+    - app
+min_weak: 3
+news_query: APK file WhatsApp challan scam
+advice:
+  verdict: Government departments and banks never send app files on WhatsApp. Don't install it.
+  steps:
+    - Delete the file without opening it.
+    - If you installed it, turn on airplane mode, uninstall it, and change your banking passwords from another device.
+    - Check real challans only on echallan.parivahan.gov.in.
+    - If money was taken, call 1930.
+  helplines: ["1930"]
+sources:
+  - https://echallan.parivahan.gov.in
+  - https://www.cert-in.org.in

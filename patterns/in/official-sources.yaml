@@ -1,0 +1,25 @@
+# Sources NoTopi treats as official: a mention here (a police advisory, a PIB fact check,
+# an RBI warning) counts far more than a forum post.
+#
+# Any site ending in one of these domains is official.
+domains:
+  - gov.in
+  - nic.in
+  - rbi.org.in
+  - cert-in.org.in
+  - npci.org.in
+
+# Police and government accounts on X (Twitter) that post scam warnings. Their posts often show
+# up in Google results. Handle names are case-insensitive; please add your state or city police
+# in a pull request, with a link to their official website that confirms the handle.
+x_handles:
+  - Cyberdost
+  - MumbaiPolice
+  - DelhiPolice
+  - blrcitypolice
+  - hydcitypolice
+  - cyberabadpolice
+  - PuneCityPolice
+  - KolkataPolice
+  - Uppolice
+  - PIBFactCheck

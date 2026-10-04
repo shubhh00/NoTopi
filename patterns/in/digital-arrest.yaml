@@ -1,0 +1,46 @@
+id: digital-arrest
+name: Digital arrest
+summary: Callers pose as CBI, customs, police or a court, claim a parcel or SIM in your name is linked to a crime, keep you on a video call and demand money to "clear" your name.
+points: 30
+phrases:
+  strong:
+    - digital arrest
+    - digitally arrested
+    - डिजिटल अरेस्ट
+    - parcel contains drugs
+    - parcel with drugs
+    - money laundering case against you
+    - arrest warrant in your name
+    - stay on video call
+    - do not disconnect the call
+    - verification of your funds
+  weak:
+    - cbi
+    - ncb
+    - customs
+    - cyber crime branch
+    - mumbai police
+    - fedex
+    - dhl
+    - parcel
+    - aadhaar
+    - warrant
+    - skype
+    - video call
+    - rbi account
+    - secret
+    - don't tell anyone
+    - किसी को मत बताना
+min_weak: 3
+news_query: digital arrest scam police advisory
+advice:
+  verdict: No police or agency in India arrests anyone over a phone or video call. Hang up and don't pay.
+  steps:
+    - Hang up and stop any screen sharing.
+    - Don't send money, OTPs, Aadhaar or bank details.
+    - If you already paid, call 1930 right away. Money reported quickly can often be frozen.
+    - File a complaint at cybercrime.gov.in with the numbers and screenshots.
+  helplines: ["1930"]
+sources:
+  - https://cybercrime.gov.in
+  - https://www.pib.gov.in

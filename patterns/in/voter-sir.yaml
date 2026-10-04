@@ -1,0 +1,38 @@
+id: voter-sir
+name: Voter list (SIR)
+summary: Rides on the Election Commission's Special Intensive Revision (SIR) of voter lists. An SMS says your voter documents "don't match" and asks you to call an "ECI officer", who then asks for OTPs, Aadhaar details or a fee to keep your name on the list.
+points: 30
+phrases:
+  strong:
+    - sir investigation
+    - documents are not matched
+    - contact our eci officer
+    - eci officer
+    - name will be removed from voter list
+    - voter id will be cancelled
+    - voter id will be blocked
+    - वोटर लिस्ट से नाम हटा
+  # "sir", "officer", "contact" and "documents" are left out: they're in countless ordinary messages.
+  weak:
+    - voter
+    - voter list
+    - eci
+    - election commission
+    - epic
+    - father name
+    - not matched
+    - govt
+    - blo
+min_weak: 3
+news_query: SIR voter list fraud call SMS ECI officer
+advice:
+  verdict: The Election Commission doesn't ask you to call a private mobile number. Don't call it or share OTPs.
+  steps:
+    - Don't call the number and don't share OTPs, Aadhaar or bank details.
+    - Check your voter list status yourself on voters.eci.gov.in or call the official Voter Helpline, 1950.
+    - Your Booth Level Officer (BLO) visits in person with ID. They never charge a fee.
+    - If you shared details or paid, call 1930 and report it at cybercrime.gov.in.
+  helplines: ["1950", "1930"]
+sources:
+  - https://voters.eci.gov.in
+  - https://www.eci.gov.in

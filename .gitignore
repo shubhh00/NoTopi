@@ -1,0 +1,23 @@
+node_modules/
+dist/
+# The built pattern file is committed: the app bundles it and downloads it from GitHub.
+!/patterns/dist/
+coverage/
+.expo/
+*.log
+.env
+.env.local
+
+# Android / Expo native builds
+apps/mobile/android/
+apps/mobile/ios/
+
+# Spring Boot
+apps/server/target/
+apps/server/build/
+apps/server/.gradle/
+
+# IDE
+.idea/
+.vscode/
+*.iml

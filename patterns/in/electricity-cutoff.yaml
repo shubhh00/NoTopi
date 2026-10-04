@@ -1,0 +1,33 @@
+id: electricity-cutoff
+name: Electricity disconnection
+summary: An SMS says your power will be cut tonight because the last bill wasn't updated and asks you to call an "electricity officer", who then gets you to install a remote-access app or pay.
+points: 25
+phrases:
+  strong:
+    - electricity will be disconnected
+    - power will be disconnected tonight
+    - your electricity connection will be cut
+    - previous month bill was not updated
+    - contact electricity officer
+    - बिजली कनेक्शन काट दिया जाएगा
+  weak:
+    - electricity
+    - bijli
+    - disconnected
+    - tonight
+    - 9.30 pm
+    - bill
+    - officer
+    - call immediately
+    - dear consumer
+min_weak: 3
+news_query: electricity bill disconnection SMS scam
+advice:
+  verdict: Power companies don't send disconnection threats with a personal mobile number. Don't call it.
+  steps:
+    - Don't call the number and don't install any app they suggest (AnyDesk, TeamViewer, "bill update" APKs).
+    - Check your bill on your power company's official app or website.
+    - If you installed something or paid, call 1930.
+  helplines: ["1930"]
+sources:
+  - https://cybercrime.gov.in

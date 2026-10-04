@@ -1,0 +1,35 @@
+id: lottery-prize
+name: Lottery or prize
+summary: You're told you've won a KBC lottery, a lucky draw or a car, but must pay a "processing fee" or "GST" first.
+points: 25
+phrases:
+  strong:
+    - kbc lottery
+    - you have won 25 lakh
+    - lucky draw winner
+    - lottery department
+    - pay processing fee to claim
+    - pay gst to claim
+    - कौन बनेगा करोड़पति लॉटरी
+  weak:
+    - lottery
+    - prize
+    - winner
+    - lakh
+    - claim
+    - processing fee
+    - gst
+    - whatsapp
+    - congratulations
+    - car
+min_weak: 3
+news_query: KBC lottery WhatsApp fraud
+advice:
+  verdict: You can't win a lottery you never entered, and real prizes never ask for a fee.
+  steps:
+    - Don't pay any fee or share bank details.
+    - Block the number.
+    - Report it at cybercrime.gov.in or on Sanchar Saathi (Chakshu).
+  helplines: ["1930"]
+sources:
+  - https://sancharsaathi.gov.in

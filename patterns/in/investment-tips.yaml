@@ -1,0 +1,39 @@
+id: investment-tips
+name: Stock tips group
+summary: A WhatsApp or Telegram "investment club" shares stock tips, shows fake profits in a trading app and asks for more deposits. Withdrawals never work.
+points: 30
+phrases:
+  strong:
+    - guaranteed returns
+    - ipo allotment guaranteed
+    - institutional account
+    - vip stock group
+    - 300% profit
+    - withdrawal requires tax payment
+    - pay tax to withdraw
+    - गारंटीड रिटर्न
+  weak:
+    - stock
+    - ipo
+    - trading app
+    - profit
+    - returns
+    - whatsapp group
+    - telegram
+    - mentor
+    - professor
+    - deposit
+    - withdraw
+    - sebi registered
+min_weak: 3
+news_query: stock market investment WhatsApp group fraud
+advice:
+  verdict: Nobody can guarantee stock returns. Apps that need "tax" before withdrawal are fake.
+  steps:
+    - Don't deposit more, even to "unlock" a withdrawal.
+    - Check the adviser on SEBI's intermediary search (sebi.gov.in).
+    - Report the group and app at cybercrime.gov.in or call 1930.
+  helplines: ["1930"]
+sources:
+  - https://www.sebi.gov.in
+  - https://cybercrime.gov.in
