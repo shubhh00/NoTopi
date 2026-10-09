@@ -18,6 +18,7 @@ apps/mobile/modules/*/android/.cxx/
 apps/server/target/
 apps/server/build/
 apps/server/.gradle/
+apps/server/data/
 
 # IDE
 .idea/

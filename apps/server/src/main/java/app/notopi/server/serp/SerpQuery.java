@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public record SerpQuery(String engine, SortedMap<String, String> params) {
 
 	/** Only the engines the app plans. Anything else is rejected so the server key can't be used for arbitrary searches. */
-	static final Set<String> ENGINES = Set.of("google", "google_play_product");
+	static final Set<String> ENGINES = Set.of("google", "google_news", "google_play_product");
 
 	static final Set<String> PARAMS = Set.of(
 			"q", "gl", "hl", "num", "product_id", "store", "all_reviews", "sort_by");

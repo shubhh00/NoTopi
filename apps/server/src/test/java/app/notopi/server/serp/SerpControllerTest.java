@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest(properties = "notopi.rate-limit.per-minute=5")
+@SpringBootTest(properties = { "notopi.rate-limit.per-minute=5", "notopi.trending.refresh-on-start=false" })
 @AutoConfigureMockMvc
 class SerpControllerTest {
 
