@@ -18,7 +18,7 @@
 ![SerpApi](https://img.shields.io/badge/Powered_by-SerpApi-DC2A1E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-141414)
 
-[What it checks](#what-it-checks) · [How it decides](#how-it-decides) · [Architecture](#architecture) · [Run it](#run-it) · [Add a scam](#add-a-scam)
+[Download](https://github.com/shubhh00/NoTopi/releases/latest) · [What it checks](#what-it-checks) · [How it decides](#how-it-decides) · [Architecture](#architecture) · [Run it](#run-it) · [Add a scam](#add-a-scam)
 
 </div>
 
@@ -46,12 +46,6 @@ like, **why** (with the exact words and web reports highlighted), and **what to 
     <td><img width="250" alt="Suspicious link verdict" src="https://github.com/user-attachments/assets/f5a3195a-90f2-4f09-a668-3673077a3f59" /></td>
     <td><img width="250" alt="Help screen" src="https://github.com/user-attachments/assets/14fd316b-3684-4689-8496-9c0955f3b3e4" /></td>
     <td><img width="250" alt="NoTopi in the Android share sheet" src="https://github.com/user-attachments/assets/f2c1dde7-c2d5-44f4-bf90-f70767b800a4" /></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Scams this week</b></td>
-  </tr>
-  <tr>
-    <td><img width="250" alt="Scams this week: news tab with sourced scam cards" src="docs/screenshots/scams-this-week.png" /></td>
   </tr>
 </table>
 
@@ -100,6 +94,10 @@ the AI only summarises: verdicts on what you check never use it.
 Models are tried in order, Groq first and then Gemini, so one busy free tier doesn't stop the feed,
 and a failed summary is retried every 30 minutes without spending search credits.
 
+<p align="center">
+  <img width="280" alt="The News tab: this week's scams, each with how it works, the reports it came from, and what to do" src="docs/screenshots/scams-this-week.png" />
+</p>
+
 ## Privacy
 
 - No account, no contacts upload, no tracking.
@@ -146,9 +144,25 @@ The free SerpApi plan has 250 searches a month, so each check uses about **two**
 one police/government search), messages that are already a clear scam from their wording use
 **none**, and results are cached for a day on the phone and on the server.
 
+## Numbers
+
+Measured on a OnePlus 7 (Android 12) with the release build unless noted.
+
+| What | Result |
+|---|---|
+| **Release APK** | 49.5 MB (R8 code and resource shrinking, arm64 only), down from 95.1 MB for the debug build: **48% smaller** |
+| **Cold start** | **~630 ms** to first frame (median of 5 launches, 605–694 ms) |
+| **Memory** | ~135 MB after launch (PSS) |
+| **Offline verdict** | **0.45 ms** median, 1.0 ms p95 for classifying and scoring an input (2,000 runs, Node on a laptop) |
+| **Searches per check** | about **2**; **0** for messages that are already a clear scam from their wording |
+| **Tests** | 70 for the engine (Vitest), 16 for the server (JUnit) |
+
 ## Run it
 
-**You need:** Node 20+, Android Studio (for the SDK and its JDK 21), and a phone with USB debugging.
+**Just want the app?** Download the APK from [Releases](https://github.com/shubhh00/NoTopi/releases/latest)
+(Android 7.0+, arm64 phones, which is nearly all phones from the last several years).
+
+**To build it yourself you need:** Node 20+, Android Studio (for the SDK and its JDK 21), and a phone with USB debugging.
 A [free SerpApi key](https://serpapi.com/users/sign_up) is optional: without one, NoTopi still
 checks the wording of messages and links.
 
