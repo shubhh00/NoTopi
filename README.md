@@ -83,6 +83,17 @@ Points add up to a risk score: **Scam** (60+), **Suspicious** (30+), and **Looks
 positive proof, such as an official domain or a matching business listing. With no evidence either
 way, it honestly says **Can't tell yet**.
 
+## Scams this week
+
+The **News** tab shows the scams police and the Indian press are warning about right now. Once a
+day the server searches Google News for the week's Indian scam stories, then a language model
+keeps only scams aimed at ordinary people (dropping politics and arrest-only stories), groups them,
+and writes how each one works and what to do. **Every scam links the articles it came from**, and
+the AI only summarises: verdicts on what you check never use it.
+
+Models are tried in order, Groq first and then Gemini, so one busy free tier doesn't stop the feed,
+and a failed summary is retried every 30 minutes without spending search credits.
+
 ## Privacy
 
 - No account, no contacts upload, no tracking.
@@ -97,6 +108,7 @@ flowchart LR
   A["Android app<br/>React Native + Kotlin"] -->|own SerpApi key| S[SerpApi]
   A -->|or hosted mode| B["Spring Boot server<br/>cache + rate limit"]
   B --> S
+  B -->|daily news summary| L["Groq → Gemini"]
   A --- E["Verdict engine<br/>TypeScript rules"]
   E --- P[("Scam pattern<br/>database (YAML)")]
 ```
@@ -106,7 +118,7 @@ flowchart LR
 | [`apps/mobile`](apps/mobile) | React Native (Expo), TypeScript | Screens, history, settings, search calls |
 | [`apps/mobile/modules`](apps/mobile/modules) | **Kotlin** (Expo Modules API) | Share and text-selection intents, ML Kit OCR |
 | [`packages/engine`](packages/engine) | TypeScript, Vitest | Classifies input, plans searches, scores evidence into a verdict |
-| [`apps/server`](apps/server) | Java 21, Spring Boot 4 | Optional proxy that keeps the key server-side, caches searches for everyone, rate-limits per device |
+| [`apps/server`](apps/server) | Java 21, Spring Boot 4 | Keeps the key server-side, caches searches for everyone, rate-limits per device, and builds the daily scam-news feed |
 | [`patterns`](patterns) | YAML | Scam scripts, brand domains, official sources, scam anatomy |
 
 ### Android (Kotlin)
@@ -148,14 +160,18 @@ npx expo run:android          # builds, installs and starts Metro
 
 Then add your SerpApi key in **Settings**, or point it at a server.
 
-**Server** (optional):
+**Server** (optional, needed for the News tab): copy `apps/server/.env.example` to
+`apps/server/.env.local` (git-ignored) and add your keys: SerpApi, plus a free
+[Groq](https://console.groq.com/keys) and/or [Gemini](https://aistudio.google.com/apikey) key for
+the news summary.
 
 ```bash
 cd apps/server
-SERPAPI_KEY=your_key ./gradlew bootRun     # Windows: set SERPAPI_KEY=... && gradlew.bat bootRun
+./gradlew bootRun             # Windows: gradlew.bat bootRun
 ```
 
-In the app, set **Settings → NoTopi server** to `http://<your-computer's-IP>:8080`.
+In the app, set **Settings → NoTopi server** to `http://localhost:8080` over USB
+(`adb reverse tcp:8080 tcp:8080`) or `http://<your-computer's-IP>:8080` on the same Wi-Fi.
 
 ## Add a scam
 
