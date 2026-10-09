@@ -23,6 +23,7 @@
     },
     "plugins": [
       "./plugins/withShareIntent",
+      "./plugins/withLocalhostServer",
       "expo-router",
       "expo-secure-store",
       "expo-sqlite",

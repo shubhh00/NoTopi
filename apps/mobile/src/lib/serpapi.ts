@@ -50,21 +50,31 @@ export async function runQuery(query: SerpQuery, settings: Settings): Promise<un
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
     let res: Response;
-    if (settings.serverUrl) {
-      res = await fetch(`${settings.serverUrl}/v1/serp`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Device-Id': await getDeviceId() },
-        body: JSON.stringify({ engine: query.engine, params: query.params }),
-        signal: controller.signal,
-      });
-    } else if (settings.serpApiKey) {
-      const params = new URLSearchParams({ ...query.params, engine: query.engine, api_key: settings.serpApiKey });
-      res = await fetch(`https://serpapi.com/search.json?${params}`, { signal: controller.signal });
-    } else {
-      throw new Error('No SerpApi key or server set');
+    try {
+      if (settings.serverUrl) {
+        res = await fetch(`${settings.serverUrl}/v1/serp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Device-Id': await getDeviceId() },
+          body: JSON.stringify({ engine: query.engine, params: query.params }),
+          signal: controller.signal,
+        });
+      } else if (settings.serpApiKey) {
+        const params = new URLSearchParams({ ...query.params, engine: query.engine, api_key: settings.serpApiKey });
+        res = await fetch(`https://serpapi.com/search.json?${params}`, { signal: controller.signal });
+      } else {
+        throw new Error('No SerpApi key or server set.');
+      }
+    } catch (e) {
+      if (e instanceof Error && e.name === 'AbortError') throw e;
+      // Network failures carry raw platform text (sometimes a Java exception); say what it means instead.
+      throw new Error(
+        settings.serverUrl
+          ? "Couldn't reach your NoTopi server. Check it's running and reachable from this phone."
+          : "Couldn't reach SerpApi. Check your internet connection.",
+      );
     }
     if (res.status === 429) throw new Error('Too many checks in a minute. Try again shortly.');
-    if (!res.ok) throw new Error(`Search failed (${res.status})`);
+    if (!res.ok) throw new Error(`The search failed (error ${res.status}).`);
     const body = await res.json();
     // SerpApi reports some failures (bad key, no credits left) as JSON with an "error" field.
     if (body && typeof body === 'object' && 'error' in body && typeof body.error === 'string') {
@@ -73,7 +83,7 @@ export async function runQuery(query: SerpQuery, settings: Settings): Promise<un
     await writeCache(key, body);
     return body;
   } catch (e) {
-    if (e instanceof Error && e.name === 'AbortError') throw new Error('Search timed out');
+    if (e instanceof Error && e.name === 'AbortError') throw new Error('The search timed out.');
     throw e;
   } finally {
     clearTimeout(timer);

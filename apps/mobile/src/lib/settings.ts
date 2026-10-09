@@ -47,6 +47,11 @@ export function serverUrlProblem(url: string): string | null {
   try {
     const u = new URL(url);
     if (u.port === '8081') return 'Port 8081 is the app’s development server. The NoTopi server usually runs on 8080.';
+    // Release builds allow plain http only to localhost (see plugins/withLocalhostServer.js).
+    const local = u.hostname === 'localhost' || u.hostname === '127.0.0.1';
+    if (!__DEV__ && u.protocol === 'http:' && !local) {
+      return 'A server on another computer needs an https:// address. Plain http only works for localhost over USB.';
+    }
     return null;
   } catch {
     return 'That doesn’t look like a web address. Try http://localhost:8080';

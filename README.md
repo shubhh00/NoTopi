@@ -191,7 +191,9 @@ cd apps/server
 ```
 
 In the app, set **Settings → NoTopi server** to `http://localhost:8080` over USB
-(`adb reverse tcp:8080 tcp:8080`) or `http://<your-computer's-IP>:8080` on the same Wi-Fi.
+(`adb reverse tcp:8080 tcp:8080`). The release app allows plain http only to `localhost`, so a
+server reached over the network needs an `https://` address (a host with a certificate, or a tunnel).
+That keeps the numbers and links you check encrypted in transit.
 
 ## 🤝 Add a scam
 

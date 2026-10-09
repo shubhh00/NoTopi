@@ -93,8 +93,7 @@ export function VerdictView({ result }: { result: CheckResult }) {
           {result.search === 'failed' && (
             <View style={styles.notice}>
               <Body style={styles.noticeText}>
-                Couldn't search the web{result.searchError ? ` (${result.searchError})` : ''}, so this was checked offline.
-                If you use a NoTopi server, check it's running and reachable from this phone.
+                {result.searchError ?? "Couldn't search the web."} This was checked offline instead, from the wording alone.
               </Body>
               <TextLink label="Open settings" onPress={() => router.push('/settings')} />
             </View>
