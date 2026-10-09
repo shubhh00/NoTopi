@@ -47,6 +47,12 @@ like, **why** (with the exact words and web reports highlighted), and **what to 
     <td><img width="250" alt="Help screen" src="https://github.com/user-attachments/assets/14fd316b-3684-4689-8496-9c0955f3b3e4" /></td>
     <td><img width="250" alt="NoTopi in the Android share sheet" src="https://github.com/user-attachments/assets/f2c1dde7-c2d5-44f4-bf90-f70767b800a4" /></td>
   </tr>
+  <tr>
+    <td align="center"><b>Scams this week</b></td>
+  </tr>
+  <tr>
+    <td><img width="250" alt="Scams this week: news tab with sourced scam cards" src="docs/screenshots/scams-this-week.png" /></td>
+  </tr>
 </table>
 
 ## What it checks
