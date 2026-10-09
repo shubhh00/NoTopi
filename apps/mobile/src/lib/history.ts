@@ -26,6 +26,11 @@ export async function addToHistory(entry: HistoryEntry): Promise<void> {
   });
 }
 
+/** Removes the list of past checks from this phone. Cached search results are separate and expire on their own. */
+export async function clearHistory(): Promise<void> {
+  await Storage.removeItem(KEY);
+}
+
 /** "just now", "5m ago", "3h ago", "2d ago". */
 export function timeAgo(at: number, now = Date.now()): string {
   const minutes = Math.floor((now - at) / 60_000);

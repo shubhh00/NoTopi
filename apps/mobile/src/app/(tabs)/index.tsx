@@ -2,12 +2,12 @@ import * as Clipboard from 'expo-clipboard';
 import * as ImagePicker from 'expo-image-picker';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Hairline } from '@/components/ReceiptView';
 import { Body, Mono, Serif, TextLink, Wordmark } from '@/components/ui';
 import { EXAMPLES } from '@/lib/examples';
-import { loadHistory, shortLabel, timeAgo, type HistoryEntry } from '@/lib/history';
+import { clearHistory, loadHistory, shortLabel, timeAgo, type HistoryEntry } from '@/lib/history';
 import { useIncomingShare } from '@/lib/share';
 import { color, font, space, type as t, verdictColor } from '@/theme';
 import { isTextRecognitionAvailable } from '../../../modules/text-recognizer';
@@ -45,6 +45,20 @@ export default function Home() {
       router.push({ pathname: '/check', params: { image: picked.assets[0].uri } });
     }
   };
+
+  // Past checks can be private messages, so they can be removed; ask first so a stray tap can't.
+  const confirmClear = () =>
+    Alert.alert('Clear recent checks?', 'This removes the list from this phone.', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Clear',
+        style: 'destructive',
+        onPress: async () => {
+          await clearHistory();
+          setHistory([]);
+        },
+      },
+    ]);
 
   useIncomingShare();
 
@@ -109,6 +123,9 @@ export default function Home() {
                   </Pressable>
                 </View>
               ))}
+              <View style={styles.clearRow}>
+                <TextLink label="Clear history" tone="muted" onPress={confirmClear} />
+              </View>
             </View>
           ) : (
             <View style={styles.section}>
@@ -156,6 +173,7 @@ const styles = StyleSheet.create({
   tipStrong: { fontFamily: font.sansMedium, color: color.ink },
   section: { marginTop: space.xl, gap: space.xs },
   sectionLabel: t.heading,
+  clearRow: { flexDirection: 'row', marginTop: space.sm },
   examples: { flexDirection: 'row', flexWrap: 'wrap', columnGap: space.lg, rowGap: space.sm, marginTop: space.xs },
   historyRow: { flexDirection: 'row', alignItems: 'center', gap: space.md, paddingVertical: 12 },
   dot: { width: 10, height: 10, borderRadius: 5 },
