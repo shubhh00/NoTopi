@@ -4,8 +4,8 @@ import * as Linking from 'expo-linking';
 import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Body, Mono, PrimaryButton, Serif, TextLink } from '@/components/ui';
-import { loadSettings, saveSettings } from '@/lib/settings';
+import { Body, PrimaryButton, Serif, TextLink } from '@/components/ui';
+import { loadSettings, normalizeServerUrl, saveSettings, serverUrlProblem } from '@/lib/settings';
 import { color, font, space, type as t } from '@/theme';
 
 export default function Settings() {
@@ -18,6 +18,8 @@ export default function Settings() {
       setServer(s.serverUrl ?? '');
     });
   }, []);
+
+  const serverProblem = serverUrlProblem(normalizeServerUrl(server));
 
   const save = async () => {
     await saveSettings({ serpApiKey: key || null, serverUrl: server || null });
@@ -39,7 +41,7 @@ export default function Settings() {
         </View>
 
         <View style={styles.field}>
-          <Mono style={t.label}>SerpApi key</Mono>
+          <Body style={t.heading}>SerpApi key</Body>
           <TextInput
             value={key}
             onChangeText={setKey}
@@ -57,19 +59,21 @@ export default function Settings() {
         </View>
 
         <View style={styles.field}>
-          <Mono style={t.label}>NoTopi server (optional)</Mono>
+          <Body style={t.heading}>NoTopi server (optional)</Body>
           <TextInput
             value={server}
             onChangeText={setServer}
-            placeholder="https://your-server.example"
+            placeholder="http://localhost:8080"
             placeholderTextColor={color.faint}
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType="url"
             style={styles.input}
           />
+          {serverProblem && <Body style={styles.problem}>{serverProblem}</Body>}
           <Body style={styles.help}>
-            If set, searches go through this server instead, and your key isn't needed.
+            If set, searches go through this server instead, and your key isn't needed. Over USB, use
+            http://localhost:8080.
           </Body>
         </View>
       </ScrollView>
@@ -97,5 +101,6 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   help: { fontSize: 15, lineHeight: 22, color: color.muted },
+  problem: { fontSize: 15, lineHeight: 22, color: color.danger },
   actions: { paddingHorizontal: space.gutter, paddingBottom: space.md },
 });

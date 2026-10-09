@@ -34,9 +34,29 @@ export async function loadSettings(): Promise<Settings> {
   return { serpApiKey: serpApiKey || null, serverUrl: serverUrl || null };
 }
 
+/** "192.168.1.10:8080/" → "http://192.168.1.10:8080". Typed addresses usually lack the scheme. */
+export function normalizeServerUrl(raw: string): string {
+  const trimmed = raw.trim().replace(/\/+$/, '');
+  if (!trimmed) return '';
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `http://${trimmed}`;
+}
+
+/** A reason the server address can't work, or null if it looks fine. */
+export function serverUrlProblem(url: string): string | null {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    if (u.port === '8081') return 'Port 8081 is the app’s development server. The NoTopi server usually runs on 8080.';
+    return null;
+  } catch {
+    return 'That doesn’t look like a web address. Try http://localhost:8080';
+  }
+}
+
 export async function saveSettings(s: Settings): Promise<void> {
+  const serverUrl = s.serverUrl ? normalizeServerUrl(s.serverUrl) : '';
   await Promise.all([
     s.serpApiKey ? SecureStore.setItemAsync(SERPAPI_KEY, s.serpApiKey.trim()) : SecureStore.deleteItemAsync(SERPAPI_KEY),
-    s.serverUrl ? SecureStore.setItemAsync(SERVER_URL, s.serverUrl.trim().replace(/\/$/, '')) : SecureStore.deleteItemAsync(SERVER_URL),
+    serverUrl ? SecureStore.setItemAsync(SERVER_URL, serverUrl) : SecureStore.deleteItemAsync(SERVER_URL),
   ]);
 }
