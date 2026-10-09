@@ -1,11 +1,11 @@
 import * as Linking from 'expo-linking';
 import { router, useFocusEffect } from 'expo-router';
-import { useCallback, useState } from 'react';
-import { Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Animated, Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Body, Mono, Serif, TextLink } from '@/components/ui';
 import { loadSettings, type Settings } from '@/lib/settings';
-import { fetchTrending, updatedLabel, type NewsArticle, type TrendingReport, type TrendingScam } from '@/lib/trending';
+import { fetchTrending, freshnessLabel, type NewsArticle, type TrendingReport, type TrendingScam } from '@/lib/trending';
 import { color, font, space, type as t } from '@/theme';
 
 /** "10/09/2026, 05:42 AM" → "9 Oct". */
@@ -67,7 +67,10 @@ function ScamStory({ scam, index }: { scam: TrendingScam; index: number }) {
     <View style={styles.card}>
       <View style={styles.row}>
         <Mono style={styles.number}>{String(index + 1).padStart(2, '0')}</Mono>
-        <Mono style={styles.kicker}>{reports}{latest ? ` · ${latest}` : ''}</Mono>
+        <View style={styles.meta}>
+          <Mono style={styles.kicker}>{reports}</Mono>
+          {latest ? <Mono style={styles.kicker}>{latest}</Mono> : null}
+        </View>
       </View>
       <Body style={styles.storyTitle}>{scam.name}</Body>
       <Body style={styles.storyText}>{scam.howItWorks}</Body>
@@ -85,17 +88,56 @@ function ScamStory({ scam, index }: { scam: TrendingScam; index: number }) {
   );
 }
 
+/**
+ * A short message that fades in above the tab bar and goes away on its own. Tapping it dismisses it
+ * at once, and the tap stops here so it never opens the article link underneath.
+ */
+function Toast({ message, onDone }: { message: string; onDone: () => void }) {
+  const opacity = useRef(new Animated.Value(0)).current;
+  const anim = useRef<Animated.CompositeAnimation | null>(null);
+  useEffect(() => {
+    anim.current = Animated.sequence([
+      // 2.5 s in all: long enough to read one line, short enough not to linger.
+      Animated.timing(opacity, { toValue: 1, duration: 150, useNativeDriver: true }),
+      Animated.delay(2100),
+      Animated.timing(opacity, { toValue: 0, duration: 250, useNativeDriver: true }),
+    ]);
+    anim.current.start(({ finished }) => finished && onDone());
+    return () => anim.current?.stop();
+  }, [message, onDone, opacity]);
+  const dismiss = () => {
+    anim.current?.stop();
+    Animated.timing(opacity, { toValue: 0, duration: 120, useNativeDriver: true }).start(() => onDone());
+  };
+  return (
+    <Animated.View style={[styles.toast, { opacity }]} accessibilityLiveRegion="polite">
+      <Pressable onPress={dismiss} accessibilityRole="button" accessibilityHint="Dismisses this message" style={styles.toastPress}>
+        <Body style={styles.toastText}>{message}</Body>
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 /** This week's scams in Indian news, summarised by the NoTopi server with every source linked. */
 export default function News() {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [report, setReport] = useState<TrendingReport | null>(null);
   const [loading, setLoading] = useState(false);
+  // The report only changes once a day, so a pull to refresh usually finds nothing new; without
+  // a word the pull looks like it did nothing. Say how fresh the news is and when it next updates.
+  const [toast, setToast] = useState<{ text: string; id: number } | null>(null);
+  const hideToast = useCallback(() => setToast(null), []);
+  const shown = useRef<TrendingReport | null>(null);
 
   const load = useCallback(async (force = false) => {
     setLoading(true);
     const s = await loadSettings();
     setSettings(s);
-    setReport(await fetchTrending(s, force));
+    const next = await fetchTrending(s, force);
+    // While a toast is up, pulling again leaves it alone, so it still fades on time.
+    if (force && next && shown.current?.updatedAt === next.updatedAt) setToast((t) => t ?? { text: freshnessLabel(next), id: Date.now() });
+    shown.current = next;
+    setReport(next);
     setLoading(false);
   }, []);
 
@@ -108,10 +150,7 @@ export default function News() {
         refreshControl={<RefreshControl refreshing={loading} onRefresh={() => load(true)} tintColor={color.ink} />}
       >
         {/* When, then what, then details: a news-section header. */}
-        <Body style={styles.eyebrow}>
-          {report ? weekRange(report) : ' '}
-          {report ? <Body style={styles.eyebrowMuted}>{`  ·  ${updatedLabel(report)}`}</Body> : null}
-        </Body>
+        <Body style={styles.eyebrow}>{report ? weekRange(report) : ' '}</Body>
         <Serif style={styles.headline}>Scams this week</Serif>
         <Body style={styles.lead}>What police and the news are warning about in India, with every report linked.</Body>
 
@@ -141,6 +180,7 @@ export default function News() {
           </Body>
         )}
       </ScrollView>
+      {toast ? <Toast key={toast.id} message={toast.text} onDone={hideToast} /> : null}
     </SafeAreaView>
   );
 }
@@ -149,10 +189,23 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: color.paper },
   content: { paddingHorizontal: space.gutter, paddingTop: space.xl, paddingBottom: space.xl },
   headline: { ...t.display, marginTop: space.xs },
-  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
+  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
+  meta: { alignItems: 'flex-end', gap: 2 },
   eyebrow: { fontFamily: font.sansMedium, fontSize: 14, lineHeight: 20, color: color.danger },
-  eyebrowMuted: { fontFamily: font.sans, fontSize: 14, color: color.muted },
   lead: { ...t.lead, color: color.muted, marginTop: space.sm },
+  toast: {
+    position: 'absolute',
+    left: space.gutter,
+    right: space.gutter,
+    bottom: space.md,
+    // The same soft pill as the selected tab, so it reads as part of the app, not a system alert.
+    backgroundColor: color.pillActive,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: color.hairline,
+    borderRadius: 22,
+  },
+  toastPress: { paddingVertical: 12, paddingHorizontal: space.md },
+  toastText: { fontFamily: font.sansMedium, fontSize: 14, lineHeight: 20, color: color.ink, textAlign: 'center' },
   // Each scam is its own card, so stories read as separate from the page heading.
   card: { marginTop: space.lg, backgroundColor: color.card, borderRadius: 16, padding: space.md + 4 },
   kicker: { fontSize: 12, color: color.muted },

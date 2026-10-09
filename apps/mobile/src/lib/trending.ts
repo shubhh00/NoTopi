@@ -57,11 +57,18 @@ export async function fetchTrending(settings: Settings, force = false): Promise<
   }
 }
 
-/** "Updated 3h ago" from the server's report time. */
-export function updatedLabel(report: TrendingReport, now = Date.now()): string {
-  const hours = Math.floor((now - Date.parse(report.updatedAt)) / 3_600_000);
-  if (Number.isNaN(hours)) return '';
-  if (hours < 1) return 'Updated just now';
-  if (hours < 24) return `Updated ${hours}h ago`;
-  return `Updated ${Math.floor(hours / 24)}d ago`;
+const DAY_MS = 86_400_000;
+const IST_OFFSET_MS = 5.5 * 3_600_000;
+/** The server rebuilds the report every day at 7:00 India time (TrendingService.scheduledRefresh). */
+const REFRESH_HOUR_IST = 7;
+
+/** "This is today's news. Next update in 6h." Shown after a pull to refresh finds nothing new. */
+export function freshnessLabel(report: TrendingReport, now = Date.now()): string {
+  const istNow = now + IST_OFFSET_MS;
+  const fromToday = Math.floor((Date.parse(report.updatedAt) + IST_OFFSET_MS) / DAY_MS) === Math.floor(istNow / DAY_MS);
+  let next = Math.floor(istNow / DAY_MS) * DAY_MS + REFRESH_HOUR_IST * 3_600_000;
+  if (next <= istNow) next += DAY_MS;
+  const minutes = Math.ceil((next - istNow) / 60_000);
+  const wait = minutes < 60 ? `${minutes} min` : `${Math.round(minutes / 60)}h`;
+  return `${fromToday ? "This is today's news" : 'This is the latest news'}. Next update in ${wait}.`;
 }
