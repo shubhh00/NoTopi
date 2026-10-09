@@ -1,8 +1,6 @@
 import { LogBox } from 'react-native';
 
-// Development-only notices that aren't problems, hidden so the toast doesn't cover the
-// action buttons. Imported first in the root layout so it runs before the warnings fire.
-LogBox.ignoreLogs([
-  // Shown when the phone has "reduce motion" on; animations already respect it.
-  'Reduced motion setting is enabled',
-]);
+// Development builds show library warnings as toasts that cover the action buttons and end up
+// in screen recordings. Hide them all; they still print in the Metro terminal, and release
+// builds never show them. Imported first in the root layout so it runs before any warning fires.
+LogBox.ignoreAllLogs();
