@@ -53,11 +53,16 @@ export function decide(signals: Signal[]): { level: VerdictLevel; score: number 
   return { level: signals.some((s) => s.points < 0) ? 'clean' : 'unknown', score };
 }
 
-/** Patterns that web reports about a number, link or app describe ("…caller said my parcel had drugs…"). */
+/**
+ * Patterns that web reports about a number, link or app describe ("…caller said my parcel had drugs…").
+ * Only a specific (strong) phrase counts: reports pooled together always share common words
+ * ("challan", "app", "bank"), and naming the wrong scam gives the wrong advice. A scam no pattern
+ * describes is still caught by the other signals; it just isn't given a name.
+ */
 function patternFromReports(ev: Evidence, patterns: Pattern[]): PatternMatch | undefined {
   const reports = itemsMentioning(ev.items, SCAM_WORDS).map(([i]) => i);
   if (reports.length === 0) return undefined;
-  return matchPatterns(reports.map(itemText).join('\n'), patterns)[0];
+  return matchPatterns(reports.map(itemText).join('\n'), patterns).find((m) => m.strong.length > 0);
 }
 
 /**

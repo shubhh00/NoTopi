@@ -27,6 +27,7 @@ describe('messages', () => {
   it.each([
     ['electricity-cutoff', 'Dear consumer, your electricity will be disconnected tonight at 9.30 pm because previous month bill was not updated. Contact electricity officer 9876543210 immediately.'],
     ['apk-file', 'Your e-challan is pending. Download RTO Challan.apk to pay now or vehicle will be seized.'],
+    ['fake-challan', 'Your vehicle challan is pending. Pay your challan today at echallan-parivahan.top or your licence will be suspended and a court case filed.'],
     ['task-job', 'Part time job! Like YouTube videos and earn 5000 daily. Join our Telegram, complete tasks to withdraw.'],
     ['lottery-prize', 'Congratulations! You have won 25 lakh in KBC lottery. Pay processing fee to claim on WhatsApp.'],
     ['upi-collect', 'I am army officer buying your sofa on OLX. I sent you collect request, enter PIN to receive the advance.'],
@@ -70,6 +71,46 @@ describe('links', () => {
   it("doesn't treat 'public' as LIC", () => {
     const v = assess(classify('publicnotice.org'), none, db);
     expect(v.signals.map((s) => s.id)).not.toContain('url.brand-lookalike');
+  });
+
+  // Real results for echallanparivahan.in (Oct 2026): e-challan alerts, not app-file ones.
+  it('names a fake e-challan site from reports, not the app-file scam', () => {
+    const reports: Evidence = {
+      searched: ['search', 'official'],
+      items: [
+        web(
+          'E-challan Scam: ई-चालान घोटाले से रहें सावधान',
+          'Traffic e challan scam alert Know original and fake Parivahan links e-challan Scam ... echallanparivahan.in/.',
+          'https://www.amarujala.com/technology/e-challan-scam',
+        ),
+        web(
+          'Possible Fake e-Challan Scam Alert',
+          'Scammers are misusing the eChallan – Digital Traffic/Transport Enforcement Solution name (MoRTH, Govt. of India) to cheat people.',
+          'https://www.facebook.com/post/1',
+        ),
+      ],
+    };
+    const v = assess(classify('echallanparivahan.in'), reports, db);
+    expect(v.pattern?.pattern.id).toBe('fake-challan');
+    expect(v.signals.map((s) => s.id)).toContain('url.brand-lookalike');
+
+    // A scam no pattern describes is still flagged, but isn't given the name of a pattern it only
+    // shares common words with ("download", "app", "file" are also app-file words).
+    const withoutIt = { ...db, patterns: db.patterns.filter((p) => p.id !== 'fake-challan') };
+    const looselyWorded: Evidence = {
+      searched: ['search', 'official'],
+      items: [
+        ...reports.items,
+        web(
+          'Fake traffic fine website alert',
+          'Scam warning: the site asks you to download a receipt file, or open it in the app, after you pay.',
+          'https://example-news.in/fake-fine-site',
+        ),
+      ],
+    };
+    const unnamed = assess(classify('echallanparivahan.in'), looselyWorded, withoutIt);
+    expect(unnamed.pattern).toBeUndefined();
+    expect(unnamed.level).not.toBe('unknown');
   });
 });
 

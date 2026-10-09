@@ -1,0 +1,40 @@
+id: fake-challan
+name: Fake e-challan
+summary: An SMS or WhatsApp message says you have an unpaid traffic fine and links to a site that copies the Parivahan e-challan portal, which steals your card or UPI details when you "pay".
+points: 30
+phrases:
+  strong:
+    - e-challan scam
+    - fake e-challan
+    - fake challan
+    - challan scam
+    - echallan scam
+    - your challan is pending
+    - challan is pending
+    - pay your challan
+    - traffic violation challan
+    - ई-चालान
+  weak:
+    - challan
+    - e-challan
+    - echallan
+    - parivahan
+    - traffic
+    - fine
+    - vehicle
+    - pending
+    - pay
+    - link
+    - overdue
+min_weak: 3
+news_query: fake e-challan link SMS scam
+advice:
+  verdict: Real challans are only on echallan.parivahan.gov.in. Don't pay through a link in a message.
+  steps:
+    - Don't open the link or enter card, UPI or OTP details.
+    - Check for a challan yourself on echallan.parivahan.gov.in by typing the address, using your vehicle number.
+    - If you paid or shared card details, block the card with your bank and call 1930.
+  helplines: ["1930"]
+sources:
+  - https://echallan.parivahan.gov.in
+  - https://cybercrime.gov.in
