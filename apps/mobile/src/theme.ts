@@ -14,6 +14,8 @@ export const color = {
   /** Cards that sit on the paper: the input, the help card. */
   card: '#FBF9F4',
   dangerTint: '#F8E6E0',
+  /** The selected tab: a shade darker than the paper. */
+  pillActive: '#E6E0D2',
 } as const;
 
 /** Background, main text and secondary text for each verdict's full-bleed block. */
@@ -54,6 +56,4 @@ export const type = {
   body: { fontFamily: font.sans, fontSize: 16, lineHeight: 24 },
   /** Section headings within a screen: "Your message", "Why". Quiet, so the content leads. */
   heading: { fontFamily: font.sansMedium, fontSize: 15, lineHeight: 22, color: color.muted },
-  /** Small labels: "Recent", form field names. */
-  label: { fontFamily: font.mono, fontSize: 14, color: color.muted },
 } as const;

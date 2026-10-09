@@ -10,7 +10,7 @@ import { EXAMPLES } from '@/lib/examples';
 import { loadHistory, shortLabel, timeAgo, type HistoryEntry } from '@/lib/history';
 import { useIncomingShare } from '@/lib/share';
 import { color, font, space, type as t, verdictColor } from '@/theme';
-import { isTextRecognitionAvailable } from '../../modules/text-recognizer';
+import { isTextRecognitionAvailable } from '../../../modules/text-recognizer';
 
 const LEVEL_LABEL = { scam: 'Scam', suspicious: 'Suspicious', clean: 'Clean', unknown: 'Unsure' } as const;
 
@@ -49,7 +49,7 @@ export default function Home() {
   useIncomingShare();
 
   return (
-    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
+    <SafeAreaView style={styles.screen} edges={['top']}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <View style={styles.topBar}>
@@ -98,7 +98,7 @@ export default function Home() {
 
           {history.length > 0 ? (
             <View style={styles.section}>
-              <Mono style={styles.sectionLabel}>Recent</Mono>
+              <Body style={styles.sectionLabel}>Recent</Body>
               {history.slice(0, 4).map((h, i) => (
                 <View key={h.raw}>
                   {i > 0 && <Hairline />}
@@ -112,7 +112,7 @@ export default function Home() {
             </View>
           ) : (
             <View style={styles.section}>
-              <Mono style={styles.sectionLabel}>Try an example</Mono>
+              <Body style={styles.sectionLabel}>Try an example</Body>
               <View style={styles.examples}>
                 {EXAMPLES.map((e) => <TextLink key={e.label} label={e.label} onPress={() => check(e.text)} />)}
               </View>
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   tip: { fontSize: 15, lineHeight: 22, color: color.muted, marginTop: space.lg },
   tipStrong: { fontFamily: font.sansMedium, color: color.ink },
   section: { marginTop: space.xl, gap: space.xs },
-  sectionLabel: t.label,
+  sectionLabel: t.heading,
   examples: { flexDirection: 'row', flexWrap: 'wrap', columnGap: space.lg, rowGap: space.sm, marginTop: space.xs },
   historyRow: { flexDirection: 'row', alignItems: 'center', gap: space.md, paddingVertical: 12 },
   dot: { width: 10, height: 10, borderRadius: 5 },
