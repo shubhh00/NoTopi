@@ -18,13 +18,19 @@
 ![SerpApi](https://img.shields.io/badge/Powered_by-SerpApi-DC2A1E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-141414)
 
-[Download](https://github.com/shubhh00/NoTopi/releases/latest) · [What it checks](#-what-it-checks) · [How it decides](#-how-it-decides) · [Architecture](#-architecture) · [Run it](#-run-it) · [Add a scam](#-add-a-scam)
+[Download](https://github.com/shubhh00/NoTopi/releases/latest) · [Demo](#-demo) · [What it checks](#-what-it-checks) · [How it decides](#-how-it-decides) · [Architecture](#-architecture) · [Run it](#-run-it) · [Add a scam](#-add-a-scam)
 
 </div>
 
 NoTopi is an open-source Android app that checks messages, phone numbers, links, apps and shop
 names for scams common in India. It doesn't just say "spam": it tells you **which scam** it looks
 like, **why** (with the exact words and web reports highlighted), and **what to do next**.
+
+## 🎬 Demo
+
+<!-- DEMO VIDEO: paste the GitHub video link (https://github.com/user-attachments/assets/...) on the
+     empty line below, on a line of its own. GitHub shows a link like that as a video player. -->
+
 
 <table>
   <tr>
@@ -155,7 +161,7 @@ Measured on a OnePlus 7 (Android 12) with the release build unless noted.
 | **Memory** | ~135 MB after launch (PSS) |
 | **Offline verdict** | **0.45 ms** median, 1.0 ms p95 for classifying and scoring an input (2,000 runs, Node on a laptop) |
 | **Searches per check** | about **2**; **0** for messages that are already a clear scam from their wording |
-| **Tests** | 70 for the engine (Vitest), 16 for the server (JUnit) |
+| **Tests** | 72 for the engine (Vitest), 17 for the server (JUnit) |
 
 ## 🚀 Run it
 
