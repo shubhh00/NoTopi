@@ -28,9 +28,11 @@ like, **why** (with the exact words and web reports highlighted), and **what to 
 
 ## 🎬 Demo
 
-<!-- DEMO VIDEO: paste the GitHub video link (https://github.com/user-attachments/assets/...) on the
-     empty line below, on a line of its own. GitHub shows a link like that as a video player. -->
+<div align="center">
+     
+https://github.com/user-attachments/assets/bd3e481a-8792-4cc9-9d06-eac66bbea64a
 
+</div>
 
 <table>
   <tr>
